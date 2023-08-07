@@ -11,7 +11,7 @@ export default defineConfig({
     port: 8080,
     proxy: {
       '^/server/.*': {
-        target: 'http://test.tpterp.com:8000/web/',
+        target: 'https://www.tpterp.com/web/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/server/, ''),
       },
