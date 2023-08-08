@@ -34,7 +34,7 @@
             }},
           {title: 'Charging capacity', dataIndex: 'charge_capacity'},
           {title: 'Total order cost（include GST）', dataIndex: 'order_fee'},
-          {title: 'Charging station ID', dataIndex: 'pile_id_fk'},
+          {title: 'Charging Pile ID', dataIndex: 'pile_id_fk'},
           {title: 'User Name', dataIndex: ['appuser_id_fk','appuser_username']},
           {title: 'Operate', dataIndex: 'action', width: 250, align: 'center'},
         ]"
@@ -116,7 +116,7 @@ const formFields = computed(()=>{
     },
     {
       name: 'pile_id_fk',
-      label: 'Charging station ID',
+      label: 'Charging Pile ID',
     },
     {
       name: 'appuser_id_fk',
@@ -166,7 +166,7 @@ const searchFields = computed(()=>{
     },
     {
       name: 'pile_id',
-      label: 'Charging station ID',
+      label: 'Charging Pile ID',
       // type:'select',
       // inputProps: {
       //   options:dropDownData.value.options
