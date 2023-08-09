@@ -123,6 +123,11 @@ const handleSubmit = async (values) => {
     background: url('@/assets/login.png') no-repeat 100% 50%;
     background-size: 100%;
 
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+
     h1 {
       color: #fff;
     }
@@ -136,6 +141,12 @@ const handleSubmit = async (values) => {
     background-color: #fff;
     width: 400px;
     padding: 50px;
+
+    /* Add media queries to center content on mobile screens */
+    @media (max-width: 768px) {
+      margin: 0 auto;
+      width: auto;
+    }
 
     .form {
       margin-top: 40px;
