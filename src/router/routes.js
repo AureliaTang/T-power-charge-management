@@ -10,6 +10,14 @@ export default [
     component: () => import('../pages/Login.vue')
   },
   {
+    path: '/test',
+    name: 'test',
+    meta: {
+      title: 'test'
+    },
+    component: () => import('../pages/test.vue')
+  },
+  {
     path: '/',
     name: 'Home',
     meta: {
