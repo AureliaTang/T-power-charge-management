@@ -21,9 +21,9 @@ export default {
   data() {
     return {
       items: [
-        { id: 1, text: 'Item 1' , buttonText: 'Button 1', buttonHeight: '30px'},
-        { id: 2, text: 'Item 2' , buttonText: 'Button 2', buttonHeight: '30px'},
-        { id: 3, text: 'Item 3' , buttonText: 'Button 3', buttonHeight: '30px'},
+        { id: 1, text: 'Item 1' , buttonText: 'start', buttonHeight: '30px'},
+        { id: 2, text: 'Item 2' , buttonText: 'start', buttonHeight: '30px'},
+        { id: 3, text: 'Item 3' , buttonText: 'start', buttonHeight: '30px'},
 
         // ... more items
       ],
@@ -59,7 +59,7 @@ export default {
 .grid-item {
   width: 400px;
   height: 300px;
-  background-color: #fffdfd;
+  background-color: #9dcbec;
   margin-left: 40px;
   margin-top: 30px;
   border-radius: 20px;
@@ -75,11 +75,11 @@ export default {
   justify-content: flex-start;
 }
 .grid-item {
-  width: 400px;
+  width: 365px;
   height: 300px;
-  background-color: #fffdfd;
-  margin-left: 40px;
-  margin-top: 30px;
+  //background-color: #fffdfd;
+  margin-left: 10px;
+  //margin-top: 30px;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -96,6 +96,7 @@ export default {
   padding: 5px 10px;
   background-color: transparent;
   cursor: pointer;
+  background-color: #f7fafa;
   transition: background-color 0.3s, color 0.3s;
   margin-top: auto; /* 将按钮推到容器底部 */
   margin-bottom: 10px; /* 在按钮底部添加一些距离 */
