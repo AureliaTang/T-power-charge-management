@@ -24,17 +24,17 @@
         :pagination="false"
         :columns="[
           {title: 'ID', dataIndex: 'order_id', width: 120},        
-          {title: 'Order start time', dataIndex: 'order_start_datetime',customRender: ({text}) => {
+          {title: 'Order Start Time', dataIndex: 'order_start_datetime',customRender: ({text}) => {
               
               return moment(text).utc().format('YYYY-MM-DD hh:mm:ss')
             }},
-          {title: 'Order end time', dataIndex: 'order_end_datetime',customRender: ({text}) => {
+          {title: 'Order End Time', dataIndex: 'order_end_datetime',customRender: ({text}) => {
               
               return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
             }},
-          {title: 'Charging capacity', dataIndex: 'charge_capacity'},
-          {title: 'Total order cost（include GST）', dataIndex: 'order_fee'},
-          {title: 'Charging Pile ID', dataIndex: 'pile_id_fk'},
+          {title: 'Charging Capacity (Kw)', dataIndex: 'charge_capacity_divided'},
+          {title: 'Total Order Cost（include GST）', dataIndex: 'order_fee'},
+          {title: 'Charging Pile SN', dataIndex: ['pile_id_fk','pile_sn']},
           {title: 'User Name', dataIndex: ['appuser_id_fk','appuser_username']},
           {title: 'Operate', dataIndex: 'action', width: 250, align: 'center'},
         ]"
@@ -116,7 +116,8 @@ const formFields = computed(()=>{
     },
     {
       name: 'pile_id_fk',
-      label: 'Charging Pile ID',
+      label: 'Charging Pile SN',
+      names: 'pile_sn'
     },
     {
       name: 'appuser_id_fk',
