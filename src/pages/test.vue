@@ -12,21 +12,32 @@
     <div class="section_2 flex-col">
       <span class="text_3">Charge&nbsp;list</span>
     </div><br><br>
-    <div class="search">
+    <div class="search flex-col">
       <input v-model="searchQuery" type="text" placeholder=" Pile ID" />&nbsp;
-      <button class="custom-button" @click="search"><img class="search-icon" src="@/assets/search.png" alt="search" /></button>
+      <button class="custom-button" @click="search">
+        <img class="search-icon" src="@/assets/search1.png" alt="search" />
+      </button>
     </div><br>
     <div class="box_3 flex-col">
       <div class="group_1 flex-row">
         <div class="text-wrapper_1 flex-col">
           <span class="text_4">1</span>
         </div>
-        <span class="text_5">123456789（PILE&nbsp;ID）</span>
+        <span class="text_5">1000063（Pile&nbsp;ID）</span>&nbsp;&nbsp;
+        <button class="start-button" @click="">
         <img
             class="switch_1"
             referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnge9462864e547c705ed2496170fe61d75164ad56c4e9f46404e9035f123a3dcc0"
+            src="@/assets/start.png"
         />
+        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="stop-button" @click="search">
+          <img
+              class="switch_1"
+              referrerpolicy="no-referrer"
+              src="@/assets/stop.png"
+          />
+        </button>
 <!--        <button type="primary"  size="large" >start</button>-->
       </div>
       <div class="group_2 flex-row justify-between">
@@ -35,7 +46,7 @@
       </div>
       <div class="group_3 flex-row">
         <div class="text-group_7 flex-col">
-          <span class="text_7">220&nbsp;V</span><br>
+          <span class="text_7">--&nbsp;V</span><br>
           <span class="text_8">Voltage</span>
         </div>
         <img
@@ -44,7 +55,7 @@
             src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng2e65ab9700a99f1496415eddfcd5cfddc7fda651173c5a60b642447f56170095"
         />
         <div class="text-group_8 flex-col">
-          <span class="text_9">75&nbsp;Kw</span><br>
+          <span class="text_9">--&nbsp;Kw</span><br>
           <span class="text_10">Power</span>
         </div>
         <img
@@ -53,7 +64,7 @@
             src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng2e65ab9700a99f1496415eddfcd5cfddc7fda651173c5a60b642447f56170095"
         />
         <div class="text-group_9 flex-col">
-          <span class="text_11">30&nbsp;Kwh</span><br>
+          <span class="text_11">--&nbsp;Kwh</span><br>
           <span class="text_12">Capacity</span>
         </div>
       </div>
@@ -175,7 +186,7 @@ export default {
   height: 138px;
   width: 346px;
   position: absolute;
-  //left: 15px;
+  left: 20px;
   //top: 161px;
   padding: 16px 13px 16px 13px;
 }
@@ -213,9 +224,9 @@ export default {
 }
 
 .switch_1 {
-  width: 38px;
+  width: 20px;
   height: 20px;
-  margin: 1px 0 1px 57px;
+  //margin: 1px 0 1px 57px;
 }
 
 .group_2 {
@@ -334,20 +345,33 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  //height: 100vh; /* 可以根据需要调整容器高度 */
+  border: none;
 }
 
 .custom-button {
-  //background-color: #3498db;
-  //color: white;
-  //border: none;
-  //width: 2px;
-  //height: 2px;
-  //border-radius: 3px;
+  border: none;
   padding: 0px 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
+.start-button {
+  background: white;
+  border: none;
+  padding: 0px 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.stop-button {
+  background: white;
+  border: none;
+  padding: 0px 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
 
 .search-icon {
   width: 20px; /* 调整图标的宽度 */
