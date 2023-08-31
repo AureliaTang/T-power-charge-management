@@ -11,18 +11,23 @@
     </div>
     <div class="section_2 flex-col">
       <span class="text_3">Charge&nbsp;list</span>
-    </div>
+    </div><br><br>
+    <div class="search">
+      <input v-model="searchQuery" type="text" placeholder=" Pile ID" />&nbsp;
+      <button class="custom-button" @click="search"><img class="search-icon" src="@/assets/search.png" alt="search" /></button>
+    </div><br>
     <div class="box_3 flex-col">
       <div class="group_1 flex-row">
         <div class="text-wrapper_1 flex-col">
           <span class="text_4">1</span>
         </div>
-        <span class="text_5">123456789（CHARGE&nbsp;ID）</span>
+        <span class="text_5">123456789（PILE&nbsp;ID）</span>
         <img
             class="switch_1"
             referrerpolicy="no-referrer"
             src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPnge9462864e547c705ed2496170fe61d75164ad56c4e9f46404e9035f123a3dcc0"
         />
+<!--        <button type="primary"  size="large" >start</button>-->
       </div>
       <div class="group_2 flex-row justify-between">
         <div class="box_6 flex-col"></div>
@@ -30,8 +35,8 @@
       </div>
       <div class="group_3 flex-row">
         <div class="text-group_7 flex-col">
-          <span class="text_7">220&nbsp;V</span>
-<!--          <span class="text_8">Voltage</span>-->
+          <span class="text_7">220&nbsp;V</span><br>
+          <span class="text_8">Voltage</span>
         </div>
         <img
             class="image_3"
@@ -39,8 +44,8 @@
             src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng2e65ab9700a99f1496415eddfcd5cfddc7fda651173c5a60b642447f56170095"
         />
         <div class="text-group_8 flex-col">
-          <span class="text_9">75&nbsp;Kw</span>
-<!--          <span class="text_10">Power</span>-->
+          <span class="text_9">75&nbsp;Kw</span><br>
+          <span class="text_10">Power</span>
         </div>
         <img
             class="image_4"
@@ -48,8 +53,8 @@
             src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng2e65ab9700a99f1496415eddfcd5cfddc7fda651173c5a60b642447f56170095"
         />
         <div class="text-group_9 flex-col">
-          <span class="text_11">30&nbsp;Kwh</span>
-<!--          <span class="text_12">Electicity</span>-->
+          <span class="text_11">30&nbsp;Kwh</span><br>
+          <span class="text_12">Capacity</span>
         </div>
       </div>
     </div>
@@ -57,28 +62,44 @@
 </template>
 
 <script>
+import {Button} from "ant-design-vue";
+
+// export default {
+//   components: {Button},
+//   data() {
+//     return {
+//       items: [
+//         { id: 1, text: 'Item 1' , buttonText: 'start', buttonHeight: '30px'},
+//         { id: 2, text: 'Item 2' , buttonText: 'start', buttonHeight: '30px'},
+//         { id: 3, text: 'Item 3' , buttonText: 'start', buttonHeight: '30px'},
+//
+//         // ... more items
+//       ],
+//       itemsPerPage: 10, // Number of items per page
+//     };
+//   },
+//   computed: {
+//     paginatedItems() {
+//       const paginated = [];
+//       for (let i = 0; i < this.items.length; i += this.itemsPerPage) {
+//         paginated.push(this.items.slice(i, i + this.itemsPerPage));
+//       }
+//       return paginated;
+//     },
+//   },
+// };
 export default {
   data() {
     return {
-      items: [
-        { id: 1, text: 'Item 1' , buttonText: 'start', buttonHeight: '30px'},
-        { id: 2, text: 'Item 2' , buttonText: 'start', buttonHeight: '30px'},
-        { id: 3, text: 'Item 3' , buttonText: 'start', buttonHeight: '30px'},
-
-        // ... more items
-      ],
-      itemsPerPage: 10, // Number of items per page
+      searchQuery: ''
     };
   },
-  computed: {
-    paginatedItems() {
-      const paginated = [];
-      for (let i = 0; i < this.items.length; i += this.itemsPerPage) {
-        paginated.push(this.items.slice(i, i + this.itemsPerPage));
-      }
-      return paginated;
-    },
-  },
+  methods: {
+    search() {
+      // 在这里可以执行搜索操作，使用this.searchQuery来获取搜索关键字
+      console.log('Performing search for:', this.searchQuery);
+    }
+  }
 };
 </script>
 
@@ -273,17 +294,7 @@ export default {
   line-height: 19px;
 }
 
-.text_10 {
-  overflow-wrap: break-word;
-  color: rgba(115, 121, 129, 1);
-  font-size: 13px;
-  //font-family: PingFangSC-Regular;
-  //font-weight: NaN;
-  text-align: center;
-  white-space: nowrap;
-  line-height: 18px;
-  margin: 6px 2px 0 1px;
-}
+
 
 .image_4 {
   width: 1px;
@@ -317,5 +328,29 @@ export default {
   white-space: nowrap;
   line-height: 18px;
   margin-top: 6px;
+}
+
+.search{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //height: 100vh; /* 可以根据需要调整容器高度 */
+}
+
+.custom-button {
+  //background-color: #3498db;
+  //color: white;
+  //border: none;
+  //width: 2px;
+  //height: 2px;
+  //border-radius: 3px;
+  padding: 0px 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-icon {
+  width: 20px; /* 调整图标的宽度 */
+  height: 20px; /* 调整图标的高度 */
 }
 </style>
