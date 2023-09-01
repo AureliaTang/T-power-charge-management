@@ -4,7 +4,7 @@
       <img
           class="image_2"
           referrerpolicy="no-referrer"
-          src="https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng049064115903a357059c820bc7483d7e353bcfc21447d7b8fc82f482fb91c2c6"
+          src="@/assets/logo.png"
       />
       <span class="text_2">Fleet&nbsp;manage&nbsp;system</span>
       <div class="icon_1 flex-col"></div>
@@ -154,14 +154,14 @@ export default {
 
 .icon_1 {
   //border-radius: 50%;
-  background-image: url(https://lanhu-dds-backend.oss-cn-beijing.aliyuncs.com/merge_image/imgs/58e9daebe9364284a9c5d71b4d9d1b8b_mergeImage.png);
+  background-image: url("@/assets/user.png");
   width: 22px;
   height: 22px;
   margin: 1px 0 1px 65px;
 }
 
 .section_2 {
-  background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/SketchPng13c423bd59eb11eebf8f0dd99fad3ebc0162a615d750416d71caa50d987d032f)
+  background: url("@/assets/img.png")
   0px 0px no-repeat;
   background-size: 375px 182px;
   margin-top: 5px;
