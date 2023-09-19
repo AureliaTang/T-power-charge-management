@@ -97,7 +97,7 @@ const onSearch = searchValue => {
   };
 
 const handleDownload = (record)=>{
-  download({operators_id:record.statement_id}).then(response => {
+  download({operators_id:record.operators_id_fk, statement_date:record.statement_datetime}).then(response => {
       if(response.code == 200){
         return window.location.href=response.pdf_download_url
       }else{

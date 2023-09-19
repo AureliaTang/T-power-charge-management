@@ -21,11 +21,11 @@
         :loading="loading"
         :pagination="false"
         :columns="[
-          {title: 'Charging Pile ID', dataIndex: 'pile_id'},
+          {title: 'ID', dataIndex: 'pile_id'},
+          {title: 'Charging Pile SN', dataIndex: 'pile_sn', width: 100, align: 'center'},
           {title: 'Name', dataIndex: 'pile_charge_type'},,
           {title: 'Model', dataIndex: 'pile_model', width: 100, align: 'center'},
           {title: 'State', dataIndex: 'pile_location_state', width: 100, align: 'center'},
-          {title: 'SN', dataIndex: 'pile_sn', width: 100, align: 'center'},
           {title: 'Supplier', dataIndex: 'pile_vendor', width: 100, align: 'center'},
           // {title: 'Measurement confirmation software version', dataIndex: 'pile_metrfirmwareversion', width: 100, align: 'center'},
           {title: 'Power', dataIndex: 'pile_ratekw', width: 100, align: 'center'},
@@ -45,8 +45,8 @@
               <Button v-if="record.pile_status=='Available'"  @click="handleStart(record)" style="width: 116px;" >Start</Button>
               <Button v-else-if="record.pile_status=='Charging'" @click="handleStop(record)" style="width: 116px;">Stop </Button>
               <Button v-else disabled style="width: 116px;">unavaliable</Button>
-              <Button type="primary" @click="handleModify(record)">modify</Button>
-              <Button type="primary" danger @click="handleDelete(record)" >delete</Button>
+              <Button type="primary" v-if="superuserType[0]['is_superuser'] == true" @click="handleModify(record)">modify</Button>
+              <Button type="primary" v-if="superuserType[0]['is_superuser'] == true" danger @click="handleDelete(record)" >delete</Button>
             </Space>
           </template>
         </template>
@@ -89,8 +89,9 @@ import ComSchemaForm from '@/components/com/ComSchemaForm.vue';
 import usePagingList from '@/setups/usePagingList';
 import useEdit from '@/setups/useEdit';
 
-import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne } from '@/apis/pile';
-
+import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne,controlOne } from '@/apis/pile';
+import {info} from "@/apis/dashboard.js";
+const superuserType = ref([]);
 const formFields = computed(()=>{
   let result = [
     {
@@ -259,5 +260,19 @@ const onSearch = searchValue => {
 // watch(queryValues, (val)=>{
 //   handleChangeQueryValues(val)
 // }, {deep: 1})
+onMounted(
+    () => {
+      // init()
+      controlbutton()
+
+      return;
+
+    }
+)
+const controlbutton = async() => {
+  const resp = await controlOne()
+  superuserType.value = resp.data
+  return {superuserType}
+}
 
 </script>
