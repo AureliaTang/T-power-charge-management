@@ -84,3 +84,12 @@ export const stopOne = (data) => {
     data: data
   })
 }
+
+export const controlOne = (data) =>{
+  return request({
+    method:'GET',
+    url: '/server/superuser_check/',
+    timeout: 999*1000,
+    data:data
+  })
+}
