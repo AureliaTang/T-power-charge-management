@@ -23,14 +23,14 @@
         <div class="text-wrapper_1 flex-col">
           <span class="text_4">1</span>
         </div>
-        <span class="text_5">1000063（Pile&nbsp;ID）</span>&nbsp;&nbsp;
-        <button class="start-button" @click="">
+        <span class="text_5">1000063（Pile&nbsp;ID）</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="start-button"   @click="">
         <img
             class="switch_1"
             referrerpolicy="no-referrer"
             src="@/assets/start.png"
         />
-        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="stop-button" @click="search">
           <img
               class="switch_1"
@@ -73,7 +73,9 @@
 </template>
 
 <script>
-import {Button} from "ant-design-vue";
+import {Button, message, Modal} from "ant-design-vue";
+// import {startOne, stopOne} from "@/apis/pile.js";
+// import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne } from '@/apis/pile';
 
 // export default {
 //   components: {Button},
@@ -112,6 +114,52 @@ export default {
     }
   }
 };
+
+// const handleStart = async (rowData)=>{
+//   console.log(rowData);
+//   let title = 'Are you sure to start?';
+//   const params = {
+//     'id_tag': rowData.pile_sn,
+//     'connector_id': rowData.pile_connect_no,
+//     'user_token': localStorage.getItem("token")
+//   }
+//   Modal.confirm({
+//     title: title,
+//     onOk: async ()=>{
+//       try {
+//         const resp = await startOne(params)
+//         console.log(resp)
+//         message.success(resp.message)
+//         doQueryList();
+//       } catch (error) {
+//         throw error
+//       }
+//     }
+//   })
+// }
+//
+// const handleStop = async (rowData)=>{
+//   let title = 'Are you sure to stop?';
+//   const params = {
+//     'id_tag': rowData.pile_sn,
+//     'connector_id': rowData.pile_connect_no,
+//     'user_token': localStorage.getItem("token")
+//   }
+//   Modal.confirm({
+//     title: title,
+//     onOk: async ()=>{
+//       try {
+//         const resp = await stopOne(params)
+//         console.log(resp)
+//         message.success(resp.message)
+//         doQueryList();
+//       } catch (error) {
+//         throw error
+//       }
+//     }
+//   })
+// }
+
 </script>
 
 <style scoped>
@@ -342,6 +390,7 @@ export default {
 }
 
 .search{
+  width: 374px;
   display: flex;
   justify-content: center;
   align-items: center;
