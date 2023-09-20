@@ -6,11 +6,11 @@
           referrerpolicy="no-referrer"
           src="@/assets/logo.png"
       />
-      <span class="text_2">Fleet&nbsp;manage&nbsp;system</span>
+      <span class="text_2">Fleet&nbsp;Manage&nbsp;System</span>
       <div class="icon_1 flex-col"></div>
     </div>
     <div class="section_2 flex-col">
-      <span class="text_3">Charge&nbsp;list</span>
+      <span class="text_3">Charge&nbsp;List</span>
     </div><br><br>
     <div class="search flex-col">
       <input v-model="searchQuery" type="text" placeholder=" Pile ID" />&nbsp;
