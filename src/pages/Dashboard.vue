@@ -12,12 +12,12 @@
                         <div class="item">
                             <PayCircleOutlined :style="{fontSize: '110px'}" />
                             <p class="number">{{ infos.data_order_fee?.data_order_fee_year || 0 }}</p>
-                            <p>Annual Charging Revenue(million dollar)</p>
+                            <p>Annual Charging Revenue(dollar)</p>
                         </div>
                         <div class="item">
 							<PayCircleOutlined :style="{fontSize: '110px'}" />
                             <p class="number">{{ infos.data_order_fee?.data_order_fee_month || 0 }}</p>
-                            <p>Charging Revenue for the Month(million dollar)</p>
+                            <p>Charging Revenue for the Month(dollar)</p>
                         </div>
                         <div class="item">
 							<PayCircleOutlined :style="{fontSize: '110px'}" />
@@ -27,12 +27,12 @@
                         <div class="item">
                             <NodeIndexOutlined :style="{fontSize: '110px'}" />
                             <p class="number">{{ infos.data_order_capacity?.data_order_capacity_year || 0 }}</p>
-                            <p>Annual Charging Capacity (MWh)</p>
+                            <p>Annual Charging Capacity (kWh)</p>
                         </div>
                         <div class="item">
 							<NodeIndexOutlined :style="{fontSize: '110px'}" />
                             <p class="number">{{ infos.data_order_capacity?.data_order_capacity_month || 0 }}</p>
-                            <p>Charging Capacity for the Month(MWh)</p>
+                            <p>Charging Capacity for the Month(kWh)</p>
                         </div>
                         <div class="item">
 							<NodeIndexOutlined :style="{fontSize: '110px'}" />

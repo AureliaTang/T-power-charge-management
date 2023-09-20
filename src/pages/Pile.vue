@@ -28,9 +28,9 @@
           {title: 'State', dataIndex: 'pile_location_state', width: 100, align: 'center'},
           {title: 'Supplier', dataIndex: 'pile_vendor', width: 100, align: 'center'},
           // {title: 'Measurement confirmation software version', dataIndex: 'pile_metrfirmwareversion', width: 100, align: 'center'},
-          {title: 'Power', dataIndex: 'pile_ratekw', width: 100, align: 'center'},
-          {title: 'Charging Pile Connect Number', dataIndex: 'pile_connect_no', width: 250, align: 'center'},
+          {title: 'Connect Number', dataIndex: 'pile_connect_no', width: 250, align: 'center'},
           {title: 'Max Output Power', dataIndex: 'pile_outputcurrentmax', width: 250, align: 'center'},
+          {title: 'Price', dataIndex: 'charge_price', width: 100, align: 'center'},
           {title: 'Working Status', dataIndex: 'pile_status', width: 250, align: 'center'},
           {title: 'Operate', dataIndex: 'action',align: 'center'},
         ]"
@@ -45,8 +45,10 @@
               <Button v-if="record.pile_status=='Available'"  @click="handleStart(record)" style="width: 116px;" >Start</Button>
               <Button v-else-if="record.pile_status=='Charging'" @click="handleStop(record)" style="width: 116px;">Stop </Button>
               <Button v-else disabled style="width: 116px;">unavaliable</Button>
-              <Button type="primary" v-if="superuserType[0]['is_superuser'] == true" @click="handleModify(record)">modify</Button>
-              <Button type="primary" v-if="superuserType[0]['is_superuser'] == true" danger @click="handleDelete(record)" >delete</Button>
+              <Button type="primary" @click="handleModify(record)">modify</Button>
+              <Button type="primary" danger @click="handleDelete(record)" >delete</Button>
+<!--              <Button type="primary" v-if="superuserType[0]['is_superuser'] == true" @click="handleModify(record)">modify</Button>-->
+<!--              <Button type="primary" v-if="superuserType[0]['is_superuser'] == true" danger @click="handleDelete(record)" >delete</Button>-->
             </Space>
           </template>
         </template>
@@ -91,7 +93,7 @@ import useEdit from '@/setups/useEdit';
 
 import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne,controlOne } from '@/apis/pile';
 import {info} from "@/apis/dashboard.js";
-const superuserType = ref([]);
+// const superuserType = ref([]);
 const formFields = computed(()=>{
   let result = [
     {
@@ -129,8 +131,8 @@ const formFields = computed(()=>{
       label: 'Supplier'
     },
     {
-      name: 'pile_ratekw',
-      label: 'Power'
+      name: 'charge_price',
+      label: 'Price'
     },
     {
       name: 'pile_connect_no',
@@ -269,10 +271,10 @@ onMounted(
 
     }
 )
-const controlbutton = async() => {
-  const resp = await controlOne()
-  superuserType.value = resp.data
-  return {superuserType}
-}
+// const controlbutton = async() => {
+//   const resp = await controlOne()
+//   superuserType.value = resp.data
+//   return {superuserType}
+// }
 
 </script>

@@ -25,17 +25,15 @@
         :columns="[
           {title: 'ID', dataIndex: 'order_id', width: 120},        
           {title: 'Order Start Time', dataIndex: 'order_start_datetime',customRender: ({text}) => {
-              
               return moment(text).utc().format('YYYY-MM-DD hh:mm:ss')
             }},
           {title: 'Order End Time', dataIndex: 'order_end_datetime',customRender: ({text}) => {
-              
               return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
             }},
           {title: 'Charging Capacity (Kw)', dataIndex: 'charge_capacity_divided'},
           {title: 'Total Order Cost（include GST）', dataIndex: 'order_fee'},
           {title: 'Charging Pile SN', dataIndex: ['pile_id_fk','pile_sn']},
-          {title: 'User Name', dataIndex: ['appuser_id_fk','appuser_username']},
+          {title: 'Username', dataIndex: ['appuser_id_fk','appuser_username']},
           {title: 'Operate', dataIndex: 'action', width: 250, align: 'center'},
         ]"
       >
@@ -99,12 +97,12 @@ const formFields = computed(()=>{
     {
       name: 'order_start_datetime',
       label: 'Order start time',
-      type: 'date'
+      type: 'datetime'
     },
     {
       name: 'order_end_datetime',
       label: 'Order end time',
-      type: 'date'
+      type: 'datetime'
     },
     {
       name: 'charge_capacity',
