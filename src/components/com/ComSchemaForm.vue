@@ -80,18 +80,23 @@
         >
         </InputStation>
         <DatePicker
-          v-else-if="el.type==='date'&& el.names && formValues[el.name]"
+          v-else-if="el.type==='datetime'&& el.names && formValues[el.name]"
           v-model:value="formValues[el.name][el.names]"
+
           v-bind="el.inputProps"
+          :type="'datetime'"
+          :show-time="{ format: 'HH:mm:ss' }"
           :value-format="'YYYY-MM-DD HH:mm:ss'"
           :style="{
             width: '100%'
           }"
         ></DatePicker>
         <DatePicker
-          v-else-if="el.type==='date'"
+          v-else-if="el.type==='datetime'"
           v-model:value="formValues[el.name]"
           v-bind="el.inputProps"
+          :show-time="{ format: 'HH:mm:ss' }"
+          :type="'datetime'"
           :value-format="'YYYY-MM-DD HH:mm:ss'"
           :style="{
             width: '100%'
@@ -185,7 +190,7 @@ watch(()=>props.values, ()=>{
         ...values
       }
     }
-    if(item.type =='date'){
+    if(item.type =='datetime'){
         formValues[item.name] = dayjs(formValues[item.name]).format('YYYY-MM-DD HH:mm:ss');
     }
   
