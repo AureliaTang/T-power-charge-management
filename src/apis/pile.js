@@ -88,7 +88,7 @@ export const stopOne = (data) => {
 export const teststartOne = (data) => {
   return request({
     method: 'POST',
-    url: 'http://tpterp.com:8082/remote_start',
+    url: '/server/remote_start',
     timeout: 999 * 1000,
     data: data
   })

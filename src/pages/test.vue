@@ -23,7 +23,7 @@
         <div class="text-wrapper_1 flex-col">
           <span class="text_4">1</span>
         </div>
-        <span class="text_5">1000063（Pile&nbsp;ID）</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="text_5">1000079（AC）</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="start-button"   @click="testhandleStart()">
         <img
             class="switch_1"
@@ -31,7 +31,7 @@
             src="@/assets/start.png"
         />
         </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="stop-button" @click="search">
+        <button class="stop-button" @click="testhandleStop()">
           <img
               class="switch_1"
               referrerpolicy="no-referrer"
@@ -75,7 +75,7 @@
 <script>
 import {Button, message, Modal} from "ant-design-vue";
 // import {startOne, stopOne} from "@/apis/pile.js";
-import {startOne, teststartOne} from '@/apis/pile';
+import {startOne, stopOne} from '@/apis/pile';
 
 // export default {
 //   components: {Button},
@@ -118,10 +118,29 @@ export default {
       const params = {
         'id_tag': '1000079',
         'connector_id': '1',
+        'user_token': '8a84a7b75dae3093f71e1c8b74f1582c8a6dad91'
       }
       try {
-        const resp = teststartOne(params)
+        const resp = startOne(params)
         startOne(params)
+        console.log(resp)
+        // message.success(resp.message)
+        // doQueryList();
+      } catch (error){
+        throw error
+      }
+    },
+
+    testhandleStop() {
+      let title = 'Are you sure to start?';
+      const params = {
+        'id_tag': '1000079',
+        'connector_id': '1',
+        'user_token': '8a84a7b75dae3093f71e1c8b74f1582c8a6dad91'
+      }
+      try {
+        const resp = stopOne(params)
+        stopOne(params)
         console.log(resp)
         // message.success(resp.message)
         // doQueryList();
@@ -130,6 +149,8 @@ export default {
       }
     }
   }
+
+
 };
 
 
