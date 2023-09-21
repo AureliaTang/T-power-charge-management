@@ -24,7 +24,7 @@
           <span class="text_4">1</span>
         </div>
         <span class="text_5">1000063（Pile&nbsp;ID）</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="start-button"   @click="">
+        <button class="start-button"   @click="testhandleStart()">
         <img
             class="switch_1"
             referrerpolicy="no-referrer"
@@ -75,7 +75,7 @@
 <script>
 import {Button, message, Modal} from "ant-design-vue";
 // import {startOne, stopOne} from "@/apis/pile.js";
-// import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne } from '@/apis/pile';
+import {startOne, teststartOne} from '@/apis/pile';
 
 // export default {
 //   components: {Button},
@@ -109,25 +109,45 @@ export default {
   },
   methods: {
     search() {
-      // 在这里可以执行搜索操作，使用this.searchQuery来获取搜索关键字
+
       console.log('Performing search for:', this.searchQuery);
+    },
+
+    testhandleStart() {
+      let title = 'Are you sure to start?';
+      const params = {
+        'id_tag': '1000079',
+        'connector_id': '1',
+      }
+      try {
+        const resp = teststartOne(params)
+        startOne(params)
+        console.log(resp)
+        // message.success(resp.message)
+        // doQueryList();
+      } catch (error){
+        throw error
+      }
     }
   }
 };
 
-// const handleStart = async (rowData)=>{
+
+
+// const testhandleStart = async (rowData)=>{
 //   console.log(rowData);
 //   let title = 'Are you sure to start?';
 //   const params = {
-//     'id_tag': rowData.pile_sn,
-//     'connector_id': rowData.pile_connect_no,
-//     'user_token': localStorage.getItem("token")
+//     'id_tag': '1000063',
+//     'connector_id': '1',
+//     // 'user_token': localStorage.getItem("token")
 //   }
 //   Modal.confirm({
 //     title: title,
 //     onOk: async ()=>{
 //       try {
 //         const resp = await startOne(params)
+//         startOne(params)
 //         console.log(resp)
 //         message.success(resp.message)
 //         doQueryList();
