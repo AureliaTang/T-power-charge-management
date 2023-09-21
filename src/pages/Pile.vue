@@ -91,7 +91,7 @@ import ComSchemaForm from '@/components/com/ComSchemaForm.vue';
 import usePagingList from '@/setups/usePagingList';
 import useEdit from '@/setups/useEdit';
 
-import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne,controlOne } from '@/apis/pile';
+import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne } from '@/apis/pile';
 import {info} from "@/apis/dashboard.js";
 // const superuserType = ref([]);
 const formFields = computed(()=>{
@@ -262,15 +262,15 @@ const onSearch = searchValue => {
 // watch(queryValues, (val)=>{
 //   handleChangeQueryValues(val)
 // }, {deep: 1})
-onMounted(
-    () => {
-      // init()
-      controlbutton()
-
-      return;
-
-    }
-)
+// onMounted(
+//     () => {
+//       // init()
+//       controlbutton()
+//
+//       return;
+//
+//     }
+// )
 // const controlbutton = async() => {
 //   const resp = await controlOne()
 //   superuserType.value = resp.data
