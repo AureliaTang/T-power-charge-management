@@ -23,7 +23,7 @@
         <div class="text-wrapper_1 flex-col">
           <span class="text_4">1</span>
         </div>
-        <span class="text_5">1000079（AC）</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="text_5">1000089（AC）</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="start-button"   @click="testhandleStart()">
         <img
             class="switch_1"
@@ -116,7 +116,7 @@ export default {
     testhandleStart() {
       let title = 'Are you sure to start?';
       const params = {
-        'id_tag': '1000079',
+        'id_tag': '1000089',
         'connector_id': '1',
         'user_token': '8a84a7b75dae3093f71e1c8b74f1582c8a6dad91'
       }
@@ -134,7 +134,7 @@ export default {
     testhandleStop() {
       let title = 'Are you sure to start?';
       const params = {
-        'id_tag': '1000079',
+        'id_tag': '1000089',
         'connector_id': '1',
         'user_token': '8a84a7b75dae3093f71e1c8b74f1582c8a6dad91'
       }
