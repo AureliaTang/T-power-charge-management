@@ -256,7 +256,7 @@ const getChart = async ()=>{
         option.series[2].data = [];
         if(choice.value == 'month'){
             data.data.carbdatacapcitymonth.map(item => {
-                option.xAxis.data.push(moment(item.order_end_datetime).format('YYYY-MM-DD HH:mm:ss'))
+                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
                 option.series[2].data.push(item.charge_capacity)
             })
             data.data.datacapcitymonth.map(item=>{
@@ -268,7 +268,7 @@ const getChart = async ()=>{
         }
         if(choice.value == 'day'){
             data.data.carbdatacapacitytoday.map(item => {
-                option.xAxis.data.push(moment(item.order_end_datetime).format('YYYY-MM-DD HH:mm:ss'))
+                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
                 option.series[2].data.push(item.charge_capacity)
             })
             data.data.datacapacitytoday.map(item=>{
@@ -280,7 +280,7 @@ const getChart = async ()=>{
         }
         if(choice.value == 'hour'){
             data.data.carbdatacapacityhour.map(item => {
-                option.xAxis.data.push(moment(item.order_end_datetime).format('YYYY-MM-DD HH:mm:ss'))
+                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
                 option.series[2].data.push(item.charge_capacity)
             })
             data.data.datacapacityhour.map(item=>{
