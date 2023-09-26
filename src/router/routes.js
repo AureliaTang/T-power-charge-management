@@ -10,14 +10,6 @@ export default [
     component: () => import('../pages/Login.vue')
   },
   {
-    path: '/test',
-    name: 'test',
-    meta: {
-      title: 'test'
-    },
-    component: () => import('../pages/test.vue')
-  },
-  {
     path: '/',
     name: 'Home',
     meta: {
@@ -39,7 +31,7 @@ export default [
         path: '/order',
         name: 'Order',
         meta: {
-          title: 'Order Management',
+          title: 'Charging Session Management',
           needLogin: true
         },
         component: () => import('@/pages/Order.vue')
@@ -138,7 +130,7 @@ export default [
         path: '/reconciliation',
         name: 'Reconciliation',
         meta: {
-          title: '对账',
+          title: 'statement',
           needLogin: true
         },
         component: () => import('@/pages/Reconciliation.vue')
