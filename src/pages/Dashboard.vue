@@ -43,7 +43,7 @@
                 </Card>
             </Col>
            <Col :span="11" :offset="1">
-            <Card title="Device Real-time Status">
+            <Card title="Real-time Status">
                     <CardGrid style="text-align: center">
                         <span class="flex flex-col items-center">
                             <span class="text-md mt-2"><span class="dian total"></span> In-use Socket</span>
@@ -91,13 +91,14 @@
                 </Card>
             </Col>
         </Row>
-        <Card title="Charging Curve" style="margin-top: 40px;">
+        <Card title="EV Charging Insights: Profit & Sustainability" style="margin-top:40px;">
             <template #extra> 
                 <div class="you">
                     <span class="choice" @click="handleChangechoice('hour')"><a href="javascript:;">hour</a></span><span class="line"></span><span class="choice" @click="handleChangechoice('day')"><a href="javascript:;">day</a></span><span class="line"></span><span class="choice" @click="handleChangechoice('month')"><a href="javascript:;">month</a></span>
                 </div>
             </template>
-            <div ref="main" style=" height: 400px"></div>
+            <div ref="main" style="height: 450px"></div>
+            <div ref="main2" style="height:450px; margin-top: 20px" ></div>
         </Card>
         <!-- <div class="tabs">
             <Tabs v-model:activeKey="activeKey">
@@ -126,7 +127,7 @@ import { PayCircleOutlined, NodeIndexOutlined, SlidersOutlined, ApiOutlined, Ale
 import { Card, CardGrid, Row, Col, Tabs, TabPane, PageHeader} from 'ant-design-vue';
 import { ref, onMounted } from 'vue';
 import * as echarts from 'echarts'
-import { info,cartInfo } from '@/apis/dashboard'
+import { info,cartInfo,cartInfo2 } from '@/apis/dashboard'
 import moment from 'moment';
 
 const vShow = ref(false)
@@ -148,6 +149,7 @@ const handleHideVehicles = (record)=>{
 const infos = ref([]);
 
 const main = ref() // 使用ref创建虚拟DOM引用，使用时用main.value
+const main2 = ref()
 
 onMounted(
   () => {
@@ -155,6 +157,7 @@ onMounted(
 
     getData()
     getChart()
+    getChart2()
     return;
     
   }
@@ -172,6 +175,15 @@ const getData = async () => {
 //   var myChart = echarts.init(main.value);
   // 指定图表的配置项和数据
   var option = {
+    title: {
+      text: 'Capacity and Revenue Over Time', // 标题文本
+      left: 'center', // 标题居中
+      top: 10,
+      textStyle: {
+        color: '#333', // 标题文字颜色
+        fontSize: 18 // 标题文字大小
+      }
+    },
     grid: {
         left: '3%',
         right: '2%',
@@ -179,7 +191,9 @@ const getData = async () => {
         containLabel: true
     },
     legend: {
-        data: ['Capacity', 'Revenue','Carbon']
+        data: ['Capacity', 'Revenue'],
+        top: 20, // 设置图例距离顶部的距离
+        right: 20, // 设置图例距离右侧的距离
     },
     tooltip: {
         trigger: 'axis'
@@ -201,17 +215,76 @@ const getData = async () => {
         {
             name: 'Revenue',
             type: 'line',
+            itemStyle: {
+              color: '#FF5733' // 曲线颜色
+            },
             smooth: true,
             data: [],
         },
-        {
-            name: 'Carbon',
-            type: 'line',
-            smooth: true,
-            data: [],
-        }
+        // {
+        //     name: 'Carbon',
+        //     type: 'line',
+        //     smooth: true,
+        //     data: [],
+        // }
     ]
     };
+
+var option2 = {
+  title: {
+    text: 'Carbon Emissions Over Time', // 标题文本
+    left: 'center', // 标题居中
+    top: 10, // 设置图例距离顶部的距离
+    textStyle: {
+      color: '#333', // 标题文字颜色
+      fontSize: 18 // 标题文字大小
+    }
+  },
+  grid: {
+    left: '3%',
+    right: '2%',
+    bottom: '3%',
+    containLabel: true
+  },
+  legend: {
+    data: ['Carbon'],
+    top: 20, // 设置图例距离顶部的距离
+    right: 20, // 设置图例距离右侧的距离
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  xAxis: {
+    type: 'category',
+    data: []
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    // {
+    //   name: 'Capacity',
+    //   type: 'line',
+    //   smooth: true,
+    //   data: []
+    // },
+    // {
+    //   name: 'Revenue',
+    //   type: 'line',
+    //   smooth: true,
+    //   data: [],
+    // },
+    {
+        name: 'Carbon',
+        type: 'line',
+        smooth: true,
+        itemStyle: {
+          color: '#3ED881' // 曲线颜色
+        },
+        data: [],
+    }
+  ]
+};
     // const params = {
     //     'datetime_choice':choice
     //   }
@@ -253,41 +326,44 @@ const getChart = async ()=>{
         option.xAxis.data = [];
         option.series[0].data = [];
         option.series[1].data = [];
-        option.series[2].data = [];
+        // option.series[2].data = [];
         if(choice.value == 'month'){
-            data.data.carbdatacapcitymonth.map(item => {
-                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
-                option.series[2].data.push(item.charge_capacity)
-            })
+            // data.data.carbdatacapcitymonth.map(item => {
+            //     option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+            //     option.series[2].data.push(item.charge_capacity)
+            // })
             data.data.datacapcitymonth.map(item=>{
-                option.series[1].data.push(item.charge_capacity)
+                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+                option.series[0].data.push(item.charge_capacity)
             })
             data.data.datafeemonth.map(item=>{
-                option.series[0].data.push(item.order_fee)
+                option.series[1].data.push(item.order_fee)
             })
         }
         if(choice.value == 'day'){
-            data.data.carbdatacapacitytoday.map(item => {
-                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
-                option.series[2].data.push(item.charge_capacity)
-            })
+            // data.data.carbdatacapacitytoday.map(item => {
+            //     option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+            //     option.series[2].data.push(item.charge_capacity)
+            // })
             data.data.datacapacitytoday.map(item=>{
-                option.series[1].data.push(item.charge_capacity)
+                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+                option.series[0].data.push(item.charge_capacity)
             })
             data.data.datafeetoday.map(item=>{
-                option.series[0].data.push(item.order_fee)
+                option.series[1].data.push(item.order_fee)
             })
         }
         if(choice.value == 'hour'){
-            data.data.carbdatacapacityhour.map(item => {
-                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
-                option.series[2].data.push(item.charge_capacity)
-            })
+            // data.data.carbdatacapacityhour.map(item => {
+            //     option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+            //     option.series[2].data.push(item.charge_capacity)
+            // })
             data.data.datacapacityhour.map(item=>{
-                option.series[1].data.push(item.charge_capacity)
+                option.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+                option.series[0].data.push(item.charge_capacity)
             })
             data.data.datafeehour.map(item=>{
-                option.series[0].data.push(item.order_fee)
+                option.series[1].data.push(item.order_fee)
             })
         }
 
@@ -296,11 +372,43 @@ const getChart = async ()=>{
     myChart.clear();
     return myChart.setOption(option);
 }
+const getChart2 = async()=>{
+  const params = {
+    'datetime_choice':choice.value
+  }
+  await cartInfo2(params).then((data)=>{
+    option2.xAxis.data = [];
+    option2.series[0].data = [];
+    if(choice.value == 'month'){
+      data.data.carbdatacapcitymonth.map(item => {
+        option2.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+        option2.series[0].data.push(item.charge_capacity)
+      })
+    }
+    if(choice.value == 'day'){
+      data.data.carbdatacapacitytoday.map(item => {
+        option2.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+        option2.series[0].data.push(item.charge_capacity)
+      })
 
+    }
+    if(choice.value == 'hour'){
+      data.data.carbdatacapacityhour.map(item => {
+        option2.xAxis.data.push(moment(item.order_start_datetime).format('YYYY-MM-DD HH:mm:ss'))
+        option2.series[0].data.push(item.charge_capacity)
+      })
+    }
+
+  })
+  var myChart2 = echarts.init(main2.value);
+  myChart2.clear();
+  return myChart2.setOption(option2);
+}
 const handleChangechoice = (p) => {
     choice.value = p
     console.log(choice);
     getChart()
+    getChart2()
   }
 
 </script>
