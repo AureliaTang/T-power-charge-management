@@ -14,3 +14,11 @@ export const cartInfo = (data) => {
         params:data
     })
 }
+
+export const cartInfo2 = (data) =>{
+    return request({
+        method:'POST',
+        url: '/server/dashboard_info/',
+        params:data
+    })
+}
