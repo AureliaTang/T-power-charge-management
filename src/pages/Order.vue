@@ -25,7 +25,7 @@
         :columns="[
           {title: 'ID', dataIndex: 'order_id', width: 120},        
           {title: 'Order Start Time', dataIndex: 'order_start_datetime',customRender: ({text}) => {
-              return moment(text).utc().format('YYYY-MM-DD hh:mm:ss')
+              return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
             }},
           {title: 'Order End Time', dataIndex: 'order_end_datetime',customRender: ({text}) => {
               return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
