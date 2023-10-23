@@ -28,7 +28,6 @@ export const queryList = (params) => {
     params: params
   })
 }
-
 export const queryOne = (id) => {
   return request({
     method: 'GET',
@@ -80,25 +79,6 @@ export const stopOne = (data) => {
   return request({
     method: 'POST',
     url: '/server/stop_ocpp/',
-    timeout: 999 * 1000,
-    data: data
-  })
-}
-
-export const teststartOne = (data) => {
-  return request({
-    method: 'POST',
-    url: '/server/remote_start',
-    timeout: 999 * 1000,
-    data: data
-  })
-}
-
-
-export const teststopOne = (data) => {
-  return request({
-    method: 'POST',
-    url: 'http://tpterp.com:8082/remote_stop',
     timeout: 999 * 1000,
     data: data
   })
