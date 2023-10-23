@@ -20,7 +20,6 @@
         :columns="[
           {title: 'Statement ID', dataIndex: 'statement_id'},
 		      {title: 'Statement Datetime', dataIndex: 'statement_datetime',  align: 'center',customRender: ({text}) => {
-              
               return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
             }},
           {title: 'Operators', dataIndex: 'operators_id_fk', align: 'center'},

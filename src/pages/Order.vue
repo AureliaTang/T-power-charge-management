@@ -23,17 +23,19 @@
         :loading="loading"
         :pagination="false"
         :columns="[
-          {title: 'ID', dataIndex: 'order_id', width: 120},        
+          {title: 'ID', dataIndex: 'order_id', width: 120, align: 'center'},
+          {title: 'Order Number', dataIndex: 'order_number',align: 'center'},
           {title: 'Order Start Time', dataIndex: 'order_start_datetime',customRender: ({text}) => {
               return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
-            }},
+            },align: 'center'},
           {title: 'Order End Time', dataIndex: 'order_end_datetime',customRender: ({text}) => {
               return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
-            }},
-          {title: 'Charging Capacity (Kw)', dataIndex: 'charge_capacity_divided'},
-          {title: 'Total Order Cost（include GST）', dataIndex: 'order_fee'},
-          {title: 'Charging Pile SN', dataIndex: ['pile_id_fk','pile_sn']},
-          {title: 'Username', dataIndex: ['appuser_id_fk','appuser_username']},
+            },align: 'center'},
+          {title: 'Charging Capacity (Kw)', dataIndex: 'charge_capacity_divided',align: 'center'},
+          {title: 'Total Cost（include GST）', dataIndex: 'order_fee',align: 'center'},
+          {title: 'Charging Pile SN', dataIndex: ['pile_id_fk','pile_sn'],align: 'center'},
+          {title: 'User', dataIndex: ['appuser_id_fk','appuser_firstname'],align: 'center'},
+          {title: 'Order Status', dataIndex:'order_status',align: 'center'},
           {title: 'Operate', dataIndex: 'action', width: 250, align: 'center'},
         ]"
       >

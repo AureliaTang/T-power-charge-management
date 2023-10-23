@@ -23,7 +23,7 @@
         :columns="[
           {title: 'ID', dataIndex: 'pile_id'},
           {title: 'Charging Pile SN', dataIndex: 'pile_sn', width: 100, align: 'center'},
-          {title: 'Name', dataIndex: 'pile_charge_type'},,
+          {title: 'Type', dataIndex: 'pile_charge_type'},,
           {title: 'Model', dataIndex: 'pile_model', width: 100, align: 'center'},
           {title: 'State', dataIndex: 'pile_location_state', width: 100, align: 'center'},
           {title: 'Supplier', dataIndex: 'pile_vendor', width: 100, align: 'center'},
@@ -91,7 +91,7 @@ import ComSchemaForm from '@/components/com/ComSchemaForm.vue';
 import usePagingList from '@/setups/usePagingList';
 import useEdit from '@/setups/useEdit';
 
-import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne } from '@/apis/pile';
+import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne} from '@/apis/pile';
 import {info} from "@/apis/dashboard.js";
 // const superuserType = ref([]);
 const formFields = computed(()=>{
@@ -210,6 +210,7 @@ const {
   editSuccessCallback: doQueryList,
 })
 
+
 const onSearch = searchValue => {
     // console.log(searchValue)
     handleChangeQueryValues({'search':searchValue});
@@ -259,6 +260,10 @@ const onSearch = searchValue => {
       }
     })  
   }
+
+watch(listData,(newValue,oldValue)=>{
+
+})
 // watch(queryValues, (val)=>{
 //   handleChangeQueryValues(val)
 // }, {deep: 1})
