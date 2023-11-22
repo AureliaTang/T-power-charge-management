@@ -114,6 +114,11 @@ export const queryCurUserNavs = ()=>{
           path: '/reconciliation',
           name: 'Statement Management',
         },
+        {
+          menuId: 11,
+          path: '/datePick',
+          name: 'Date Management',
+        },
       ])
     })
   }else{
