@@ -135,6 +135,15 @@ export default [
         },
         component: () => import('@/pages/Reconciliation.vue')
       },
+      {
+        path: '/datePick',
+        name: 'DatePick',
+        meta: {
+          title: 'DatePick',
+          needLogin: true
+        },
+        component: () => import('@/pages/DatePick.vue')
+      },
     ]
   },
 ]
