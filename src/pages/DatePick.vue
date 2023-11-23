@@ -1,17 +1,27 @@
 <template>
   <Form
     :model="formState"
+    class="pick-date" 
     name="time_related_controls"
     v-bind="formItemLayout"
     @finish="onFinish"
-    @finishFailed="onFinishFailed"
   >
-    <FormItem name="date-picker" class="pick-date" label="Date Picker" :wrapper-col="{ span: 9 }">
+    <FormItem 
+      name="dateRangeVal" 
+      label="Date Picker" 
+      :rules="[{ required: true, message: 'Please input your username!' }]"
+      :wrapper-col="{ span: 9 }
+      ">
       <RangePicker
        v-model:value="formState.dateRangeVal"
        />
     </FormItem>
-    <FormItem name="select" label="Pile SN" class="select_item" :wrapper-col="{ span: 8 }">
+    <FormItem 
+      name="dropVal" 
+      label="Pile SN" 
+      class="select_item" 
+      :rules="[{ required: true, message: 'Please pick a pile sn' }]"
+      :wrapper-col="{ span: 8 }">
       <Select
         showSearch
         placeholder="Select a pile sn"
@@ -59,9 +69,10 @@ const onFinish = async() => {
   const params = {
     start_date: dayjs(formState.dateRangeVal[0]).format('YYYY-MM-DD'),
     end_date: dayjs(formState.dateRangeVal[1]).format('YYYY-MM-DD'),
-    Pile_sn: '1000002'
+    Pile_sn: formState.dropVal
   }
   const resp = await download(params)
+
   if(resp.code == 200) {
       return window.location.href=resp.pdf_download_url
     }else{
@@ -92,6 +103,6 @@ onMounted(
   margin-left: 40%;
 }
 .pick-date {
-  margin-top: 20px;
+  margin-top: 20%;
 }
 </style>
