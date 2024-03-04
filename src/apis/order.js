@@ -50,3 +50,13 @@ export const modifyOne = (data) => {
     data: data
   })
 }
+
+export const getImg = (data) => {
+  // console.log(data)
+  return request({
+    method: 'POST',
+    url: `/server/realtimevisual/`,
+    data: {order_id: data},
+    responseType: 'arraybuffer'
+  })
+}

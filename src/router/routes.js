@@ -46,6 +46,15 @@ export default [
         component: () => import('@/pages/Admin.vue')
       },
       {
+        path: '/pilemanage/:sn/:no',
+        name: 'PileManage',
+        meta: {
+          title: 'Pile Management',
+          needLogin: true
+        },
+        component: () => import('@/pages/PileManage.vue')
+      },
+      {
         path: '/user',
         name: 'User',
         meta: {

@@ -74,6 +74,15 @@ export const startOne = (data) => {
   })
 }
 
+export const chargeInfo = (data) => {
+  return request({
+    method: 'POST',
+    url: '/server/real_time_data/',
+    timeout: 999 * 1000,
+    data: data
+  })
+}
+
 
 export const stopOne = (data) => {
   return request({

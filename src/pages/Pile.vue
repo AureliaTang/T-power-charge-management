@@ -40,6 +40,14 @@
         }"
       >
         <template #bodyCell="{ column, record }">
+          <template v-if="column.dataIndex==='pile_sn'">
+            <!-- <router-link :to="`/pilemanage/${record.pile_sn}`">
+              <span >{{ record.pile_sn }}</span>
+            </router-link> -->
+            <router-link :to="`/pilemanage/${record.pile_sn}/${record.pile_connect_no}`">
+              <span>{{ record.pile_sn }}</span>
+            </router-link>
+          </template>
           <template v-if="column.dataIndex==='action'">
             <Space>
               <Button v-if="record.pile_status=='Available'"  @click="handleStart(record)" style="width: 116px;" >Start</Button>

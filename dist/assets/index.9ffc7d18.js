@@ -1,0 +1,1 @@
+import{a as t}from"./Form.efd61807.js";import{a as n,F as m}from"./debounce.95684c51.js";t.useInjectFormItemContext=n;t.ItemRest=m;t.install=function(e){return e.component(t.name,t),e.component(t.Item.name,t.Item),e.component(m.name,m),e};

@@ -40,6 +40,14 @@
         ]"
       >
       <template #bodyCell="{ column, record }">
+          <template v-if="column.dataIndex==='order_number'">
+            <el-button
+              :key="record.order_number"
+              text
+              @click="handlePop(record.order_number)"
+              >{{ record.order_number }}</el-button
+            >
+          </template>
           <template v-if="column.dataIndex==='action'">
             <Space>
               <Button type="primary" @click="handleModify(record)">modify</Button>
@@ -76,6 +84,21 @@
       @submit="handleSubmit"
       @cancel="handleCancel"
     ></ComSchemaForm>
+    <!--  -->
+    <div class="pop-content" v-show="isPop">
+      <div class="pop-box1">
+        <!-- <span class="setUp1">远程重启 (SOFTWARE)</span> -->
+        <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="() => isPop = false"/>
+        <img :src="currentImg" />
+        <!-- <div class="pop-row">
+          <div class="pop-item-row">
+            <img :src="currentImg" />
+
+          </div>
+        </div> -->
+        <!-- <el-button type="success" style="margin: 15% auto 0 auto;display: flex;" @click="UseRemoteResetSoft">启动</el-button> -->
+      </div>
+    </div>
   </div>
 </template>
 
@@ -87,12 +110,18 @@ import ComSearchForm from '@/components/com/ComSearchForm.vue';
 import moment from 'moment';
 import { PageHeader, Button, Pagination, Table, Space, Tag, InputSearch, RadioGroup, RadioButton, Modal, InputGroup} from 'ant-design-vue';
 import ComRowAction from '@/components/com/ComRowAction.vue';
-import { queryList,deleteOne,modifyOne,queryOne } from '@/apis/order'
+import { queryList,deleteOne,modifyOne,queryOne, getImg } from '@/apis/order'
 import ComSchemaForm from '@/components/com/ComSchemaForm.vue';
 
 import { queryLists } from '@/apis/station'
+import CLOSE_IMG from "../assets/close.svg"
 
 const infos = ref([]);
+const vShow = ref(false)
+const isPop = ref(false)
+const vUser = ref({})
+const currentImg = ref('')
+
 
 const formFields = computed(()=>{
   let result = [
@@ -213,6 +242,15 @@ const {
   pk:'order_id'
 })
 
+const handlePop = async(record) => {
+  isPop.value = true
+  console.log(record)
+  let res = await getImg(record)
+  const blob = new Blob([res], { type: 'image/jpeg' });
+  const imageUrl = URL.createObjectURL(blob);
+  currentImg.value = imageUrl
+}
+
 const onSearch = searchValue => {
     // console.log(searchValue)
     handleChangeQueryValues({'search':searchValue});
@@ -297,10 +335,6 @@ onMounted(
   }
 )
 
-
-const vShow = ref(false)
-const vUser = ref({})
-
 const handleShowVehicles = (record)=>{
   vShow.value = true
   vUser.value = record
@@ -311,3 +345,48 @@ const handleHideVehicles = (record)=>{
   vUser.value = {}
 }
 </script>
+<style scoped>
+.pop-content {
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.pop-box1 {
+  width: 500px;
+  height: 260px;
+  /* background: #fff; */
+  border-radius: 8px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.setUp1{
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 18px;
+}
+.pop-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15%;
+  margin-left: 20px;
+}
+.pop-item-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.pop-title {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #000;
+  font-weight: 500;
+}
+</style>

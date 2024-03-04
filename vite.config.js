@@ -15,6 +15,18 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: path => path.replace(/^\/server/, ''),
       },
+      '/api': {
+        target: 'http://test.tpterp.com:8000/',
+        changeOrigin: true,
+        secure:false,
+        rewrite: (path) => path.replace(/^\/api/, '')
+    },
+      '/text': {
+          target: 'http://test.tpterp.com:8082/',
+          changeOrigin: true,
+          secure:false,
+          rewrite: (path) => path.replace(/^\/text/, '')
+      }
     }
   },
   resolve: {
