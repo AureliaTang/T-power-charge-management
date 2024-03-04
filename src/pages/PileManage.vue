@@ -15,15 +15,15 @@
         <div class="item-left-box">
           <div class="item-text">Electric Meter</div>
           <div class="input-style3">
-            {{ data.listInfo.meter_start > -1 ?  parseFloat(data.listInfo.meter_start) / 1000:'--' }}
-            <span class="symbol">{{ data.listInfo.meter_start> -1 ?'KW':'' }}</span>
+            {{ parseFloat(data.listInfo.meter_start) > -1 ?  parseFloat(data.listInfo.meter_start) / 1000:'--' }}
+            <span class="symbol">{{ parseFloat(data.listInfo.meter_start) > -1 ?'KW':'' }}</span>
           </div>
         </div>
         <div class="item-left-box">
           <div class="item-text">Capacity</div>
           <div class="input-style3">
-            {{ data.listInfo.charge_capacity > -1 ? parseFloat(data.listInfo.charge_capacity) :'--' }}
-            <span class="symbol">{{ data.listInfo.charge_capacity> -1 ?'KWH':'' }}</span>
+            {{ parseFloat(data.listInfo.charge_capacity) > -1 ? parseFloat(data.listInfo.charge_capacity) :'--' }}
+            <span class="symbol">{{ parseFloat(data.listInfo.charge_capacity)> -1 ?'WH':'' }}</span>
           </div>
         </div>
       </div>
@@ -31,14 +31,14 @@
         <div class="item-left-box">
           <div class="item-text">Power</div>
           <div class="input-style3">
-            {{ data.listInfo.power > -1 ? data.listInfo.power / 1000:'--' }}
-            <span class="symbol">{{ data.listInfo.power> -1 ?'KW':'' }}</span>
+            {{ parseFloat(data.listInfo.power) > -1 ? parseFloat(data.listInfo.power) / 1000:'--' }}
+            <span class="symbol">{{ parseFloat(data.listInfo.power) > -1 ?'KW':'' }}</span>
           </div>
         </div>
         <div class="item-left-box">
           <div class="item-text">SOC</div>
-          <div class="input-style3">{{ data.listInfo.soc > -1 ? data.listInfo.soc:'--' }}
-            <span class="symbol">{{ data.listInfo.soc > -1 ?'%':'' }}</span>
+          <div class="input-style3">{{ parseFloat(data.listInfo.soc) > -1 ? parseFloat(data.listInfo.soc):'--' }}
+            <span class="symbol">{{ parseFloat(data.listInfo.soc) > -1 ?'%':'' }}</span>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
         </div>
         <div class="item-left-box2">
           <div class="item-text">Voltage</div>
-          <div class="input-style3">{{ data.listInfo.voltage> -1 ? data.listInfo.voltage:'--' }}<span class="symbol">{{ data.listInfo.voltage> -1 ? 'V':'' }}</span></div>
+          <div class="input-style3">{{ parseFloat(data.listInfo.voltage)> -1 ? parseFloat(data.listInfo.voltage):'--' }}<span class="symbol">{{ data.listInfo.voltage> -1 ? 'V':'' }}</span></div>
         </div>
       </div>
     </div>
@@ -64,11 +64,17 @@
       <div class="item-row-box1">
         <div class="item-left-box2">
           <div class="item-text">Current</div>
-          <div class="input-style3">{{ data.listInfo.current> -1 ? data.listInfo.current:'--' }}<span class="symbol">{{ data.listInfo.current> -1 ?'A':'' }}</span></div>
+          <div class="input-style3">{{ data.listInfo.current ? data.listInfo.current : '--' }}<span class="symbol">{{ data.listInfo.current> -1 ?'A':'' }}</span></div>
         </div>
         <div class="button-box">
-          <el-button type="success" @click="UseRemote_start">START</el-button>
-          <el-button type="info" @click="UseRemote_stop">STOP</el-button>
+          <!-- <el-button type="success" @click="UseRemote_start">START</el-button> -->
+          <el-button :type="data.isStartType ? 'info' : 'success'" @click="UseRemote_start">
+            START
+          </el-button>
+
+          <el-button :type="data.isStartType ? 'success': 'info' " @click="UseRemote_stop">
+            STOP
+          </el-button>
         </div>
       </div>
     </div>
@@ -137,8 +143,8 @@
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('btn3')"/>
         <div class="pop-row">
           <div class="pop-item-row">
-            <div class="pop-title">Gun No.</div>
-            <input type="text" placeholder="Gun No." class="pop-input1" />
+            <div class="pop-title">Charge No.</div>
+            <input type="text" placeholder="Charge No." class="pop-input1" />
           </div>
           <el-upload
           v-model:file-list="data.fileList"
@@ -231,7 +237,7 @@ const data = reactive({
   id_tag2: '',
   userInfo: {},
   loading: false,
-  isStartType: '',
+  isStartType: false,
   timeStr: JSON.parse(window.localStorage.getItem('timeStr')) || '',
   // listInfo: JSON.parse(window.localStorage.getItem('list')) || {},
   listInfo:  {},
@@ -398,7 +404,7 @@ const useChargeInfo = async () => {
     
 
     console.log(data.listInfo);
-    window.localStorage.setItem("list", JSON.stringify(data.listInfo));
+    // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
     res.data.charge_data.forEach((item, index) => {
       getAllTime(item.start_time, item.timestamp);
     });
@@ -437,7 +443,7 @@ const UseRemote_stop = async () => {
   }
   data.loading = true;
   clearInterval(data.intervalld);
-  data.isStartType = '';
+  // data.isStartType = '';
   let params = {
     user_token: localStorage.getItem("token"),
     order_stop_time: getTimeAll(time),
