@@ -3,24 +3,24 @@
     <div class="content">
       <div class="item-row-box">
         <div class="item-left-box">
-          <div class="item-text">请输入桩号</div>
-          <input type="text" class="input-style" placeholder="请输入桩号" v-model="data.id_tag" @change="inputBtn1"/>
+          <div class="item-text">Charge No.</div>
+          <input type="text" class="input-style" placeholder="Pile Number" v-model="data.id_tag" @change="inputBtn1"/>
         </div>
         <div class="item-left-box">
-          <div class="item-text">请输入枪号</div>
-          <input type="text" class="input-style" placeholder="请输入枪号" v-model="data.connector_id" @change="inputBtn2"/>
+          <div class="item-text">Gun No.</div>
+          <input type="text" class="input-style" placeholder="Gun No." v-model="data.connector_id" @change="inputBtn2"/>
         </div>
       </div>
       <div class="item-row-box">
         <div class="item-left-box">
-          <div class="item-text">电表电量</div>
+          <div class="item-text">Electric Meter</div>
           <div class="input-style3">
             {{ data.listInfo.meter_start > -1 ?  parseFloat(data.listInfo.meter_start) / 1000:'--' }}
             <span class="symbol">{{ data.listInfo.meter_start> -1 ?'KW':'' }}</span>
           </div>
         </div>
         <div class="item-left-box">
-          <div class="item-text">电量</div>
+          <div class="item-text">Capacity</div>
           <div class="input-style3">
             {{ data.listInfo.charge_capacity > -1 ? parseFloat(data.listInfo.charge_capacity) :'--' }}
             <span class="symbol">{{ data.listInfo.charge_capacity> -1 ?'KWH':'' }}</span>
@@ -29,7 +29,7 @@
       </div>
       <div class="item-row-box">
         <div class="item-left-box">
-          <div class="item-text">功率</div>
+          <div class="item-text">Power</div>
           <div class="input-style3">
             {{ data.listInfo.power > -1 ? data.listInfo.power / 1000:'--' }}
             <span class="symbol">{{ data.listInfo.power> -1 ?'KW':'' }}</span>
@@ -46,16 +46,16 @@
     <div class="content">
       <div class="item-row-box1">
         <div class="item-left-box">
-          <div class="item-text">时间</div>
+          <div class="item-text">Time</div>
           <div class="input-style3">{{ data.timeStr ? data.timeStr : '--' }}</div>
         </div>
         <div class="item-left-box2">
-          <div class="item-text">COST：</div>
+          <div class="item-text">COST</div>
           <input type="text" class="input-style" placeholder="- -" disabled/>
           <!-- <span class="symbol">$</span> -->
         </div>
         <div class="item-left-box2">
-          <div class="item-text">电压</div>
+          <div class="item-text">Voltage</div>
           <div class="input-style3">{{ data.listInfo.voltage> -1 ? data.listInfo.voltage:'--' }}<span class="symbol">{{ data.listInfo.voltage> -1 ? 'V':'' }}</span></div>
         </div>
       </div>
@@ -63,7 +63,7 @@
     <div class="content">
       <div class="item-row-box1">
         <div class="item-left-box2">
-          <div class="item-text">电流</div>
+          <div class="item-text">Current</div>
           <div class="input-style3">{{ data.listInfo.current> -1 ? data.listInfo.current:'--' }}<span class="symbol">{{ data.listInfo.current> -1 ?'A':'' }}</span></div>
         </div>
         <div class="button-box">
@@ -73,72 +73,72 @@
       </div>
     </div>
     <div class="button-style-bottom">
-      <div class="footer-button" @click="isBtn('btn1')">功率设置</div>
-      <div class="footer-button" @click="isBtn('btn2')">远程下载日志</div>
-      <div class="footer-button" @click="isBtn('btn3')">远程升级</div>
-      <div class="footer-button" @click="isBtn('btn4')">远程重启 HARDWARE</div>
-      <div class="footer-button" @click="isBtn('btn5')">远程重启 SOFTWARE</div>
+      <div class="footer-button" @click="isBtn('btn1')">Power Setting</div>
+      <div class="footer-button" @click="isBtn('btn2')">Remote Download Logs</div>
+      <div class="footer-button" @click="isBtn('btn3')">Remote Upgrade</div>
+      <div class="footer-button" @click="isBtn('btn4')">Remote Hardware Start</div>
+      <div class="footer-button" @click="isBtn('btn5')">Remote Software Start</div>
     </div>
     <!-- 功率设置弹窗 -->
     <div class="pop-content" v-show="data.isPop">
       <div class="pop-box">
-        <span class="setUp">功率设置</span>
+        <span class="setUp">Power Setting</span>
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('btn1')"/>
         <div class="pop-row">
           <div class="pop-item-row">
-            <div class="pop-title">输入桩号：</div>
-            <input type="text" placeholder="请输入桩号" class="pop-input" style="width: 500px !important;" />
+            <div class="pop-title">Charge No.</div>
+            <input type="text" placeholder="Charge No." class="pop-input" style="width: 500px !important;" />
           </div>
           <div class="pop-item-row1">
-            <div style="color: #2eaa2e;margin-bottom: 30px;font-size: 16px;font-weight: 500;">功率设置</div>
+            <div style="color: #2eaa2e;margin-bottom: 30px;font-size: 16px;font-weight: 500;">Power Setting</div>
             <div style="display: flex;align-items: center;">
-              <div class="pop-title">输入功率：</div>
-              <input type="text" placeholder="请输入功率" class="pop-input" />
+              <div class="pop-title">Power</div>
+              <input type="text" placeholder="Power" class="pop-input" />
             </div>
           </div>
           <div class="pop-item-row1">
-            <div style="color: #2eaa2e;margin-top: 30px;margin-bottom: 30px;font-size: 16px;font-weight: 500;">定时功能</div>
+            <div style="color: #2eaa2e;margin-top: 30px;margin-bottom: 30px;font-size: 16px;font-weight: 500;">Timer Function</div>
             <div class="timeStyle">
-              <div class="pop-title">开始时间：</div>
-              <el-time-picker v-model="data.timeValue" placeholder="请选择开始时间" class="time-box"/>
+              <div class="pop-title">Start Time</div>
+              <el-time-picker v-model="data.timeValue" placeholder="Start Time" class="time-box"/>
             </div>
             <div class="timeStyle1">
-              <div class="pop-title">结束时间：</div>
-              <el-time-picker v-model="data.timeValue1" placeholder="请选择结束时间" class="time-box"/>
+              <div class="pop-title">End Time</div>
+              <el-time-picker v-model="data.timeValue1" placeholder="End Time" class="time-box"/>
             </div>
           </div>
-          <el-button type="success" style="margin: 15% auto 0 auto;display: flex;">保存</el-button>
+          <el-button type="success" style="margin: 15% auto 0 auto;display: flex;">Save</el-button>
         </div>
       </div>
     </div>
     <!-- 远程日志下载 -->
     <div class="pop-content" v-show="data.isPop1">
       <div class="pop-box1">
-        <span class="setUp1">远程日志下载</span>
+        <span class="setUp1">Remote Download Logs</span>
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('btn2')"/>
         <div class="pop-row">
           <div class="pop-item-row">
-            <div class="pop-title">输入桩号：</div>
-            <input type="text" placeholder="请输入桩号" class="pop-input1" />
-            <el-button style="width: 60px;height: 35px;margin-left: 8px;" type="success">下载</el-button>
+            <div class="pop-title">Charge No.</div>
+            <input type="text" placeholder="Charge No." class="pop-input1" />
+            <el-button style="height: 35px;margin-left: 8px;" type="success">Download</el-button>
           </div>
-          <div class="pop-item-row">
+          <!-- <div class="pop-item-row">
             <div class="pop-title">输入桩号：</div>
             <input type="text" placeholder="请输入桩号" class="pop-input1" />
             <el-button type="success" style="width: 60px;height: 35px;margin-left: 8px;">下载</el-button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
     <!-- 远程升级 -->
     <div class="pop-content" v-show="data.isPop2">
       <div class="pop-box2">
-        <span class="setUp1">远程升级</span>
+        <span class="setUp1">Remote Upgrade </span>
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('btn3')"/>
         <div class="pop-row">
           <div class="pop-item-row">
-            <div class="pop-title">输入桩号：</div>
-            <input type="text" placeholder="请输入桩号" class="pop-input1" />
+            <div class="pop-title">Gun No.</div>
+            <input type="text" placeholder="Gun No." class="pop-input1" />
           </div>
           <el-upload
           v-model:file-list="data.fileList"
@@ -152,39 +152,39 @@
           :on-exceed="handleExceed"
           >
           <template #trigger>
-            <el-button style="width: 65px;height: 35px;" type="success">上传文件</el-button>
+            <el-button style="height: 35px;" type="success">Upload File</el-button>
           </template>
          </el-upload>
         </div>
-        <el-button type="success" style="margin: 0% auto 0 auto;display: flex;">保存</el-button>
+        <el-button type="success" style="margin: 0% auto 0 auto;display: flex;">Save</el-button>
       </div>
     </div>
     <!-- 远程重启 HARDWARE -->
     <div class="pop-content" v-show="data.isPop3">
       <div class="pop-box1">
-        <span class="setUp1">远程重启 (HARDWARE)</span>
+        <span class="setUp1">Remote Hardware Start</span>
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('btn4')"/>
         <div class="pop-row">
           <div class="pop-item-row">
-            <div class="pop-title">输入桩号：</div>
-            <input type="text" placeholder="请输入桩号" class="pop-input1" v-model="data.id_tag1"/>
+            <div class="pop-title">Charge No.</div>
+            <input type="text" placeholder="Charge No." class="pop-input1" v-model="data.id_tag1"/>
           </div>
         </div>
-        <el-button type="success" style="margin: 15% auto 0 auto;display: flex;" @click="UseRemoteResetHard">启动</el-button>
+        <el-button type="success" style="margin: 15% auto 0 auto;display: flex;" @click="UseRemoteResetHard">Start</el-button>
       </div>
     </div>
     <!-- 远程重启 SOFTWARE -->
     <div class="pop-content" v-show="data.isPop4">
       <div class="pop-box1">
-        <span class="setUp1">远程重启 (SOFTWARE)</span>
+        <span class="setUp1">Remote Software Start</span>
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('btn5')"/>
         <div class="pop-row">
           <div class="pop-item-row">
-            <div class="pop-title">输入桩号：</div>
-            <input type="text" placeholder="请输入桩号" class="pop-input1" v-model="data.id_tag2"/>
+            <div class="pop-title">Charge No.</div>
+            <input type="text" placeholder="Charge No." class="pop-input1" v-model="data.id_tag2"/>
           </div>
         </div>
-        <el-button type="success" style="margin: 15% auto 0 auto;display: flex;" @click="UseRemoteResetSoft">启动</el-button>
+        <el-button type="success" style="margin: 15% auto 0 auto;display: flex;" @click="UseRemoteResetSoft">Start</el-button>
       </div>
     </div>
   </div>
@@ -354,6 +354,11 @@ const UseRemote_start = async () => {
   }
 };
 
+// const getNewChargeInfo = () => {
+
+// }
+
+
 const UseRemoteResetHard = async () => {
   if (data.isStartType === false) {
     ElMessage({
@@ -497,9 +502,25 @@ const beforeRemove = (uploadFile, uploadFiles) => {
   );
 };
 
-onMounted(() => {
+onMounted(async() => {
+  let params = {
+    user_token: localStorage.getItem("token"),
+    order_start_time: getTimeAll(time),
+    connector_id: data.connector_id,
+    id_tag: data.id_tag,
+  };
   data.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
   data.isStartType = JSON.parse(window.localStorage.getItem('isStart'));
+
+  let chargeRes = await chargeInfo(params);
+  if (chargeRes.code === 200) {
+        data.loading = false;
+        data.listInfo = chargeRes.data.charge_data;
+        // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
+        chargeRes.data.charge_data.forEach((item, index) => {
+          getAllTime(item.start_time, item.timestamp);
+      });
+    }
 });
 
 </script>
@@ -634,7 +655,7 @@ onMounted(() => {
   margin: 20px auto 0 auto;
 }
 .footer-button {
-  width: 150px;
+  width: 200px;
   height: 40px;
   line-height: 40px;
   background: #f5f7fa;
@@ -665,8 +686,8 @@ onMounted(() => {
   transform: translate(-50%, -50%);
 }
 .pop-box1 {
-  width: 500px;
-  height: 260px;
+  width: 600px;
+  height: 300px;
   background: #fff;
   border-radius: 8px;
   position: absolute;
@@ -705,6 +726,7 @@ onMounted(() => {
   flex-direction: column;
 }
 .pop-title {
+  white-space: nowrap; 
   margin-right: 10px;
   font-size: 14px;
   color: #000;
