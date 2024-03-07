@@ -51,9 +51,10 @@
         </div>
         <div class="item-left-box2"> 
           <div class="item-text">Cost</div>
-          <!-- <input type="text" class="input-style" placeholder="- -" disabled/> -->
-          <span class="symbol">{{ parseFloat(data.listInfo.charge_capacity)> -1 ? '$':'' }}</span>
-          <div class="input-style3">{{ parseFloat(data.listInfo.charge_capacity)> -1 ? 0.45*parseFloat(data.listInfo.charge_capacity)/1000:'--' }} </div>
+          <div class="input-style3">
+            <span class="symbol">{{ parseFloat(data.listInfo.charge_capacity)> -1 ? '$':'' }}</span>
+            {{ parseFloat(data.listInfo.charge_capacity)> -1 ? parseFloat(0.45*parseFloat(data.listInfo.charge_capacity)/1000).toFixed(3):'--' }}
+        </div>
         </div>
         <div class="item-left-box2">
           <div class="item-text">Voltage</div>
@@ -68,12 +69,10 @@
           <div class="input-style3">{{ data.listInfo.current ? data.listInfo.current : '--' }}<span class="symbol">{{ data.listInfo.current> -1 ?'A':'' }}</span></div>
         </div>
         <div class="button-box">
-          <!-- <el-button type="success" @click="UseRemote_start">START</el-button> -->
-          <el-button :type="data.isStartType ? 'info' : 'success'" @click="UseRemote_start">
+          <el-button :type="data.isStartType ? 'info' : 'success'" :disabled="data.isStartType" @click="UseRemote_start">
             START
           </el-button>
-
-          <el-button :type="data.isStartType ? 'success': 'info' " @click="UseRemote_stop">
+          <el-button :type="!data.isStartType ? 'info' : 'success'" :disabled="!data.isStartType" @click="UseRemote_stop">
             STOP
           </el-button>
         </div>
@@ -334,24 +333,29 @@ const UseRemote_start = async () => {
 
   if (res.code === 200) {
     data.loading = false;
-    let isStartType = false;
-    window.localStorage.setItem("isStart", JSON.stringify(!isStartType));
+    // let isStartType = false;
+
+    // window.localStorage.setItem("isStart", JSON.stringify(!isStartType));
+    data.isStartType = true;
+
     ElMessage({
       message: '已启动',
       type: 'warning',
     });
-    let chargeRes = await chargeInfo(params);
-    console.log('======')
-    console.log(chargeRes)
-    if (chargeRes.code === 200) {
-        data.loading = false;
-        data.listInfo = chargeRes.data.charge_data;
-        // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
-        chargeRes.data.charge_data.forEach((item, index) => {
-          getAllTime(item.start_time, item.timestamp);
-          console.log(111111, item)
-      });
-    }
+
+    getInfo()
+    // let chargeRes = await chargeInfo(params);
+    // console.log('======')
+    // console.log(chargeRes)
+    // if (chargeRes.code === 200) {
+    //     data.loading = false;
+    //     data.listInfo = chargeRes.data.charge_data;
+    //     // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
+    //     chargeRes.data.charge_data.forEach((item, index) => {
+    //       getAllTime(item.start_time, item.timestamp);
+    //       console.log(111111, item)
+    //   });
+    // }
     if (res.data.data.order_number) {
       useChargeInfo();
     }
@@ -402,9 +406,7 @@ const useChargeInfo = async () => {
   if (res.code === 200) {
     data.loading = false;
     data.listInfo = res.data.charge_data;
-    
-
-    console.log(data.listInfo);
+    // console.log(data.listInfo);
     // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
     res.data.charge_data.forEach((item, index) => {
       getAllTime(item.start_time, item.timestamp);
@@ -455,11 +457,13 @@ const UseRemote_stop = async () => {
   let res = await stopOne(params);
 
   if (res.code === 200) {
-    window.localStorage.removeItem("isStart");
+    // window.localStorage.removeItem("isStart");
     data.loading = false;
-    data.connector_id = '';
-    data.id_tag = '';
+    // data.connector_id = '';
+    // data.id_tag = '';
     data.listInfo = {}
+    data.listInfo
+    data.isStartType = false
     ElMessage({
       message: '已停止',
       type: 'warning',
@@ -509,6 +513,25 @@ const beforeRemove = (uploadFile, uploadFiles) => {
   );
 };
 
+const getInfo = async() => {
+  let params = {
+    user_token: localStorage.getItem("token"),
+    order_start_time: getTimeAll(time),
+    connector_id: data.connector_id,
+    id_tag: data.id_tag,
+  };
+  let chargeRes = await chargeInfo(params);
+  if (chargeRes.code === 200) {
+        data.loading = false;
+        data.listInfo = chargeRes.data.charge_data;
+        // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
+        chargeRes.data.charge_data.forEach((item, index) => {
+          getAllTime(item.start_time, item.timestamp);
+          console.log(111111, item)
+      });
+    }
+};
+
 onMounted(async() => {
   let params = {
     user_token: localStorage.getItem("token"),
@@ -517,17 +540,11 @@ onMounted(async() => {
     id_tag: data.id_tag,
   };
   data.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
-  data.isStartType = JSON.parse(window.localStorage.getItem('isStart'));
+  // data.isStartType = JSON.parse(window.localStorage.getItem('isStart'));
 
-  let chargeRes = await chargeInfo(params);
-  if (chargeRes.code === 200) {
-        data.loading = false;
-        data.listInfo = chargeRes.data.charge_data;
-        // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
-        chargeRes.data.charge_data.forEach((item, index) => {
-          getAllTime(item.start_time, item.timestamp);
-      });
-    }
+  setInterval(() => {
+    getInfo();
+  }, 10000);
 });
 
 </script>
