@@ -31,7 +31,13 @@
           {title: 'Connect Number', dataIndex: 'pile_connect_no', width: 250, align: 'center'},
           {title: 'Max Output Power', dataIndex: 'pile_outputcurrentmax', width: 250, align: 'center'},
           {title: 'Price', dataIndex: 'charge_price', width: 100, align: 'center'},
-          {title: 'Working Status', dataIndex: 'pile_status', width: 250, align: 'center'},
+          // {title: 'Working Status', dataIndex: 'pile_status', width: 250, align: 'center'},
+          { 
+            title: 'Working Status', 
+            dataIndex: 'pile_status', 
+            width: 100, 
+            align: 'center', 
+          },
           {title: 'Operate', dataIndex: 'action',align: 'center'},
         ]"
         :row-selection="{
@@ -41,18 +47,26 @@
       >
         <template #bodyCell="{ column, record }">
           <template v-if="column.dataIndex==='pile_sn'">
-            <!-- <router-link :to="`/pilemanage/${record.pile_sn}`">
-              <span >{{ record.pile_sn }}</span>
-            </router-link> -->
             <router-link :to="`/pilemanage/${record.pile_sn}/${record.pile_connect_no}`">
               <span>{{ record.pile_sn }}</span>
             </router-link>
           </template>
+          <template v-if="column.dataIndex === 'pile_status'">
+            <span>
+              <Tag
+                size="large"
+                :color="dic[record.pile_status ]"
+              >
+              {{ record.pile_status }}
+              </Tag>
+
+            </span>
+          </template>
           <template v-if="column.dataIndex==='action'">
             <Space>
-              <Button v-if="record.pile_status=='Available'"  @click="handleStart(record)" style="width: 116px;" >Start</Button>
+              <!-- <Button v-if="record.pile_status=='Available'"  @click="handleStart(record)" style="width: 116px;" >Start</Button>
               <Button v-else-if="record.pile_status=='Charging'" @click="handleStop(record)" style="width: 116px;">Stop </Button>
-              <Button v-else disabled style="width: 116px;">unavaliable</Button>
+              <Button v-else disabled style="width: 116px;">unavaliable</Button> -->
               <Button type="primary" @click="handleModify(record)">modify</Button>
               <Button type="primary" danger @click="handleDelete(record)" >delete</Button>
 <!--              <Button type="primary" v-if="superuserType[0]['is_superuser'] == true" @click="handleModify(record)">modify</Button>-->
@@ -100,8 +114,15 @@ import usePagingList from '@/setups/usePagingList';
 import useEdit from '@/setups/useEdit';
 
 import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne,stopOne} from '@/apis/pile';
+
 import {info} from "@/apis/dashboard.js";
-// const superuserType = ref([]);
+
+const dic = {
+  Available: 'green',
+  Unavailable: 'red',
+  Charging: 'blue'
+}
+
 const formFields = computed(()=>{
   let result = [
     {

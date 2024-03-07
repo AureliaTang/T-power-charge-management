@@ -49,10 +49,11 @@
           <div class="item-text">Time</div>
           <div class="input-style3">{{ data.timeStr ? data.timeStr : '--' }}</div>
         </div>
-        <div class="item-left-box2">
-          <div class="item-text">COST</div>
-          <input type="text" class="input-style" placeholder="- -" disabled/>
-          <!-- <span class="symbol">$</span> -->
+        <div class="item-left-box2"> 
+          <div class="item-text">Cost</div>
+          <!-- <input type="text" class="input-style" placeholder="- -" disabled/> -->
+          <span class="symbol">{{ parseFloat(data.listInfo.charge_capacity)> -1 ? '$':'' }}</span>
+          <div class="input-style3">{{ parseFloat(data.listInfo.charge_capacity)> -1 ? 0.45*parseFloat(data.listInfo.charge_capacity)/1000:'--' }} </div>
         </div>
         <div class="item-left-box2">
           <div class="item-text">Voltage</div>
