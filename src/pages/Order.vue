@@ -25,14 +25,26 @@
         :columns="[
           {title: 'ID', dataIndex: 'order_id', width: 120, align: 'center'},
           {title: 'Order Number', dataIndex: 'order_number',align: 'center'},
-          {title: 'Order Start Time', dataIndex: 'order_start_datetime',customRender: ({text}) => {
-              return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
+          {title: 'Order Start Time AEST', dataIndex: 'order_start_datetime',customRender: ({text}) => {
+              return moment(text).tz('Australia/Sydney').format('YYYY-MM-DD HH:mm:ss')
             },align: 'center'},
-          {title: 'Order End Time', dataIndex: 'order_end_datetime',customRender: ({text}) => {
-              return moment(text).utc().format('YYYY-MM-DD HH:mm:ss')
+          {title: 'Order End Time AEST', dataIndex: 'order_end_datetime',customRender: ({text}) => {
+              return moment(text).tz('Australia/Sydney').format('YYYY-MM-DD HH:mm:ss')
             },align: 'center'},
-          {title: 'Charging Capacity (Kw)', dataIndex: 'charge_capacity_divided',align: 'center'},
-          {title: 'Total Cost（include GST）', dataIndex: 'order_fee',align: 'center'},
+            {title: 'Charge Time', customRender: ({record}) => {
+              const startTime = moment(record.order_start_datetime);
+              const endTime = moment(record.order_end_datetime);
+              if (startTime.isValid() && endTime.isValid()) {
+                const duration = moment.duration(endTime.diff(startTime));
+                const hours = Math.floor(duration.asHours());
+                const minutes = Math.floor(duration.asMinutes()) - hours * 60;
+                return `${hours} hours\n${minutes} minutes`;
+              } else {
+                return '-';
+              }
+            },align: 'center'},
+          {title: 'Charging Capacity(Kw)', dataIndex: 'charge_capacity_divided',align: 'center'},
+          {title: 'Total Cost(include GST)', dataIndex: 'order_fee',align: 'center'},
           {title: 'Charging Pile SN', dataIndex: ['pile_id_fk','pile_sn'],align: 'center'},
           {title: 'User', dataIndex: ['appuser_id_fk','appuser_firstname'],align: 'center'},
           {title: 'Order Status', dataIndex:'order_status',align: 'center'},
@@ -108,6 +120,7 @@ import usePagingList from '@/setups/usePagingList';
 import useEdit from '@/setups/useEdit';
 import ComSearchForm from '@/components/com/ComSearchForm.vue';
 import moment from 'moment';
+import 'moment-timezone';
 import { PageHeader, Button, Pagination, Table, Space, Tag, InputSearch, RadioGroup, RadioButton, Modal, InputGroup} from 'ant-design-vue';
 import ComRowAction from '@/components/com/ComRowAction.vue';
 import { queryList,deleteOne,modifyOne,queryOne, getImg } from '@/apis/order'
@@ -243,9 +256,10 @@ const {
 })
 
 const handlePop = async(record) => {
-  isPop.value = true
+  
   console.log(record)
   let res = await getImg(record)
+  isPop.value = true
   const blob = new Blob([res], { type: 'image/jpeg' });
   const imageUrl = URL.createObjectURL(blob);
   currentImg.value = imageUrl

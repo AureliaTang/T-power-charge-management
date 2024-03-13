@@ -17,6 +17,7 @@
     "echarts": "^5.4.1",
     "element-plus": "^2.5.6",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.45",
     "pinia": "^2.0.22",
     "qs": "^6.11.0",
     "vue": "^3.2.37",
