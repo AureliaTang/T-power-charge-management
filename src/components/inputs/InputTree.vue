@@ -2,7 +2,7 @@
   <Card size="small">
     <template #title>
       <Input.Search
-        placeholder="请输入搜索关键词"
+        placeholder="Input Search Word"
         :style="{
           maxWidth:'200px',
           marginLeft: '5px'
@@ -14,11 +14,11 @@
         <Space>
           <Button @click="checkedKeys=allKeys" :disabled="checkedKeys && checkedKeys.length === allKeys.length">
             <template #icon><CheckOutlined/></template>
-            全部选中
+            Select All
           </Button>
           <Button @click="checkedKeys=[]" :disabled="checkedKeys && checkedKeys.length === 0">
             <template #icon><ClearOutlined/></template>
-            全部取消
+            Cancel All
           </Button>
           <!-- <Button>全部展开</Button>
           <Button>全部收起</Button> -->

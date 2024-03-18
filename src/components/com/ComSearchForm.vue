@@ -33,13 +33,13 @@
             <!-- <InputCustomer
               v-else-if="el.type==='customer'"
               v-model:value="formValues[el.name]"
-              :placeholder="`请选择${el.label}`"
+              :placeholder="`Select${el.label}`"
               v-bind="el.inputProps"
             ></InputCustomer>
             <InputFactory
               v-else-if="el.type==='factory'"
               v-model:value="formValues[el.name]"
-              :placeholder="`请选择${el.label}`"
+              :placeholder="`Select${el.label}`"
               v-bind="el.inputProps"
             ></InputFactory> -->
             <Input
@@ -60,7 +60,7 @@
                 <ClearOutlined />Reset
               </Button>
               <!-- <Button type="primary" ghost>
-                <CloudDownloadOutlined />导出
+                <CloudDownloadOutlined />Export
               </Button> -->
             </Space>
           </FormItem>

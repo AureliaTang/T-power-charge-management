@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-loading="data.loading" element-loading-text="操作中...">
+  <div class="container" v-loading="data.loading" element-loading-text="Loading">
     <div class="content">
       <div class="item-row-box">
         <div class="item-left-box">
@@ -93,7 +93,7 @@
         <div class="pop-row">
           <div class="pop-item-row">
             <div class="pop-title">Charge No.</div>
-            <input type="text" placeholder="Charge No." class="pop-input" style="width: 500px !important;" />
+            <input type="text" placeholder="Charge No." class="pop-input" />
           </div>
           <div class="pop-item-row1">
             <div style="color: #2eaa2e;margin-bottom: 30px;font-size: 16px;font-weight: 500;">Power Setting</div>
@@ -168,7 +168,7 @@
     <!-- 远程重启 HARDWARE -->
     <div class="pop-content" v-show="data.isPop3">
       <div class="pop-box1">
-        <span class="setUp1">Remote Hardware Start</span>
+        <span class="setUp1">Remote Hardware Restart</span>
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('btn4')"/>
         <div class="pop-row">
           <div class="pop-item-row">
@@ -182,7 +182,7 @@
     <!-- 远程重启 SOFTWARE -->
     <div class="pop-content" v-show="data.isPop4">
       <div class="pop-box1">
-        <span class="setUp1">Remote Software Start</span>
+        <span class="setUp1">Remote Software Restart</span>
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('btn5')"/>
         <div class="pop-row">
           <div class="pop-item-row">
@@ -306,7 +306,7 @@ const UseRemote_start = async () => {
   console.log(999)
   if (data.connector_id === null || data.connector_id === '') {
     ElMessage({
-      message: '请输入充电桩号',
+      message: 'Enter the charging station number',
       type: 'warning',
     });
     return;
@@ -314,7 +314,7 @@ const UseRemote_start = async () => {
 
   if (data.id_tag === null || data.id_tag === '') {
     ElMessage({
-      message: '请输入枪号',
+      message: 'Enter the gun number',
       type: 'warning',
     });
     return;
@@ -339,7 +339,7 @@ const UseRemote_start = async () => {
     data.isStartType = true;
 
     ElMessage({
-      message: '已启动',
+      message: 'Start',
       type: 'warning',
     });
 
@@ -373,7 +373,7 @@ const UseRemote_start = async () => {
 const UseRemoteResetHard = async () => {
   if (data.isStartType === false) {
     ElMessage({
-      message: '请先START',
+      message: 'Please Start First',
       type: 'warning',
     });
     return;
@@ -390,7 +390,7 @@ const UseRemoteResetHard = async () => {
 const UseRemoteResetSoft = async () => {
   if (data.isStartType === false) {
     ElMessage({
-      message: '请先START',
+      message: 'Please Start First',
       type: 'warning',
     });
     return;
@@ -432,14 +432,14 @@ const getAllTime = (time, time1) => {
 const UseRemote_stop = async () => {
   if (data.connector_id === '') {
     ElMessage({
-      message: '请输入充电桩号',
+      message: 'Enter the charging station number',
       type: 'warning',
     });
     return;
   }
   if (data.id_tag === '') {
     ElMessage({
-      message: '请输入抢号',
+      message: 'Enter the gun number',
       type: 'warning',
     });
     return;
@@ -465,7 +465,7 @@ const UseRemote_stop = async () => {
     data.listInfo
     data.isStartType = false
     ElMessage({
-      message: '已停止',
+      message: 'Stop',
       type: 'warning',
     });
     refresh();
@@ -527,7 +527,6 @@ const getInfo = async() => {
         // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
         chargeRes.data.charge_data.forEach((item, index) => {
           getAllTime(item.start_time, item.timestamp);
-          console.log(111111, item)
       });
     }
 };
