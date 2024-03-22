@@ -76,8 +76,12 @@
             STOP
           </el-button>
         </div>
+        <div class="item-left-box2">
+          <img :src="currentImg" style="width: 120px; height: 120px;" />
+        </div>
       </div>
     </div>
+
     <div class="button-style-bottom">
       <div class="footer-button" @click="isBtn('btn1')">Power Setting</div>
       <div class="footer-button" @click="isBtn('btn2')">Remote Download Logs</div>
@@ -117,6 +121,12 @@
         </div>
       </div>
     </div>
+    <!-- qr -->
+    <div class="pop-content" v-show="data.isPopQr">
+      <div class="pop-box0">
+      <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="close('qr')"/>
+      </div>
+    </div>
     <!-- 远程日志下载 -->
     <div class="pop-content" v-show="data.isPop1">
       <div class="pop-box1">
@@ -128,11 +138,6 @@
             <input type="text" placeholder="Charge No." class="pop-input1" />
             <el-button style="height: 35px;margin-left: 8px;" type="success">Download</el-button>
           </div>
-          <!-- <div class="pop-item-row">
-            <div class="pop-title">输入桩号：</div>
-            <input type="text" placeholder="请输入桩号" class="pop-input1" />
-            <el-button type="success" style="width: 60px;height: 35px;margin-left: 8px;">下载</el-button>
-          </div> -->
         </div>
       </div>
     </div>
@@ -202,12 +207,14 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import { getChargeInfo, getRemote_start, getRemote_stop, getRemoteResetHard, getRemoteResetSoft } from '../apis/api.js';
 import { useRouter, useRoute } from 'vue-router';
 import { ref, watchEffect } from 'vue';
-import { queryList, createOne, modifyOne, deleteOne, deleteMany,startOne, chargeInfo, stopOne} from '@/apis/pile';
+import { getImg, startOne, chargeInfo, stopOne} from '@/apis/pile';
 import CLOSE_IMG from "../assets/close.svg"
+import QR_IMG from "../assets/QR.png"
+
 
 const router = useRouter()
 const route = useRoute()
-
+const currentImg = ref('')
 const getTimeALl = (time) => {
   var year = time.getFullYear(); // 年
     var month = (time.getMonth() + 1).toString().padStart(2, '0'); // 月
@@ -227,6 +234,7 @@ const data = reactive({
   isPop2: false,
   isPop3: false,
   isPop4: false,
+  isPopQr: false,
   timeValue: '',
   timeValue1: '',
   fileList: [],
@@ -274,6 +282,9 @@ const isBtn = (type) => {
   if (type === 'btn5') {
     data.isPop4 = true;
   }
+  if (type === 'qr') {
+    data.isPopQr = true;
+  }
 };
 
 const close = (type) => {
@@ -291,6 +302,9 @@ const close = (type) => {
   }
   if (type === 'btn5') {
     data.isPop4 = false;
+  }
+  if (type === 'qr') {
+    data.isPopQr = false;
   }
 };
 
@@ -365,10 +379,6 @@ const UseRemote_start = async () => {
   }
 };
 
-// const getNewChargeInfo = () => {
-
-// }
-
 
 const UseRemoteResetHard = async () => {
   if (data.isStartType === false) {
@@ -406,7 +416,6 @@ const useChargeInfo = async () => {
   if (res.code === 200) {
     data.loading = false;
     data.listInfo = res.data.charge_data;
-    // console.log(data.listInfo);
     // window.localStorage.setItem("list", JSON.stringify(data.listInfo));
     res.data.charge_data.forEach((item, index) => {
       getAllTime(item.start_time, item.timestamp);
@@ -429,6 +438,18 @@ const getAllTime = (time, time1) => {
   window.localStorage.setItem("timeStr", JSON.stringify(data.timeStr));
 };
 
+const qrDisplay = async() => {
+  let params = {
+    connector_id: data.connector_id,
+    pile_number: data.id_tag,
+  };
+
+  let res = await getImg(params);
+  const blob = new Blob([res], { type: 'image/jpeg' });
+  const imageUrl = URL.createObjectURL(blob);
+  currentImg.value = imageUrl
+}
+
 const UseRemote_stop = async () => {
   if (data.connector_id === '') {
     ElMessage({
@@ -446,7 +467,6 @@ const UseRemote_stop = async () => {
   }
   data.loading = true;
   clearInterval(data.intervalld);
-  // data.isStartType = '';
   let params = {
     user_token: localStorage.getItem("token"),
     order_stop_time: getTimeAll(time),
@@ -457,10 +477,7 @@ const UseRemote_stop = async () => {
   let res = await stopOne(params);
 
   if (res.code === 200) {
-    // window.localStorage.removeItem("isStart");
     data.loading = false;
-    // data.connector_id = '';
-    // data.id_tag = '';
     data.listInfo = {}
     data.listInfo
     data.isStartType = false
@@ -539,7 +556,7 @@ onMounted(async() => {
     id_tag: data.id_tag,
   };
   data.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
-  // data.isStartType = JSON.parse(window.localStorage.getItem('isStart'));
+  qrDisplay()
 
   setInterval(() => {
     getInfo();
@@ -707,6 +724,13 @@ onMounted(async() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.pop-box0 {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  margin-top: 10px;
+  padding-left: 200px;
 }
 .pop-box1 {
   width: 600px;

@@ -52,7 +52,6 @@ export const modifyOne = (data) => {
 }
 
 export const getImg = (data) => {
-  // console.log(data)
   return request({
     method: 'POST',
     url: `/server/realtimevisual/`,

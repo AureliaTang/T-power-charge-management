@@ -11,11 +11,6 @@
       </div>
     </div>
     <div class="page-body">
-      <!-- <ComSearchForm
-        :fields="searchFields"
-        :formValues="queryValues"
-        @search="handleChangeQueryValues"
-      ></ComSearchForm> -->
       <Table
         row-key="order_id"
         bordered
@@ -32,18 +27,19 @@
               return moment(text).tz('Australia/Sydney').format('YYYY-MM-DD HH:mm:ss')
             },align: 'center'},
             {title: 'Charge Time', customRender: ({record}) => {
-              const startTime = moment(record.order_start_datetime);
-              const endTime = moment(record.order_end_datetime);
-              if (startTime.isValid() && endTime.isValid()) {
-                const duration = moment.duration(endTime.diff(startTime));
-                const hours = Math.floor(duration.asHours());
-                const minutes = Math.floor(duration.asMinutes()) - hours * 60;
-                return `${hours} hours\n${minutes} minutes`;
-              } else {
-                return '-';
-              }
-            },align: 'center'},
-          {title: 'Charging Capacity(Kw)', dataIndex: 'charge_capacity_divided',align: 'center'},
+                  const startTime = moment(record.order_start_datetime);
+                  const endTime = moment(record.order_end_datetime);
+                  if (startTime.isValid() && endTime.isValid()) {
+                      const duration = moment.duration(endTime.diff(startTime));
+                      const hours = Math.floor(duration.asHours());
+                      const minutes = Math.floor(duration.asMinutes()) - hours * 60;
+                      const seconds = Math.floor(duration.asSeconds()) - hours * 3600 - minutes * 60;
+                      return `${hours}h${minutes}m${seconds}s`;
+                  } else {
+                      return '-';
+                  }
+              }, align: 'center'},
+          {title: 'Charging Capacity(KWH)', dataIndex: 'charge_capacity_divided',align: 'center'},
           {title: 'Total Cost(include GST)', dataIndex: 'order_fee',align: 'center'},
           {title: 'Charging Pile SN', dataIndex: ['pile_id_fk','pile_sn'],align: 'center'},
           {title: 'User', dataIndex: ['appuser_id_fk','appuser_firstname'],align: 'center'},
@@ -96,19 +92,12 @@
       @submit="handleSubmit"
       @cancel="handleCancel"
     ></ComSchemaForm>
-    <!--  -->
     <div class="pop-content" v-show="isPop">
       <div class="pop-box1">
-        <!-- <span class="setUp1">远程重启 (SOFTWARE)</span> -->
         <img :src="CLOSE_IMG" class="icon" style="cursor: pointer;" @click="() => isPop = false"/>
-        <img :src="currentImg" />
-        <!-- <div class="pop-row">
-          <div class="pop-item-row">
-            <img :src="currentImg" />
-
-          </div>
-        </div> -->
-        <!-- <el-button type="success" style="margin: 15% auto 0 auto;display: flex;" @click="UseRemoteResetSoft">启动</el-button> -->
+        <div style="max-height: 100vh; max-width: 100vw; overflow: auto;">
+            <img :src="currentImg" style="max-height: 100%; max-width: 100%; display: block; margin: auto;" />
+        </div>
       </div>
     </div>
   </div>
@@ -210,12 +199,6 @@ const searchFields = computed(()=>{
     {
       name: 'pile_id',
       label: 'Charging Pile ID',
-      // type:'select',
-      // inputProps: {
-      //   options:dropDownData.value.options
-      // },
-      // onDropdownVisibleChange:handleDropDownVisibleChange,
-      // onPopupScroll:handlePopupScroll,
     },
   ]
   return result
@@ -335,11 +318,6 @@ const getData = async () => {
       item.value = item.station_name
     });
     return {infos}
-    // for(let i in searchFields.value){
-    //   if(searchFields.value[i].type == 'select'){
-    //     searchFields.value[i].inputProps.options = infos.rawValue;
-    //   }
-    // }
 }
 
 
@@ -371,7 +349,6 @@ const handleHideVehicles = (record)=>{
 .pop-box1 {
   width: 500px;
   height: 260px;
-  /* background: #fff; */
   border-radius: 8px;
   position: absolute;
   top: 30%;

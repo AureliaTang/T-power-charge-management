@@ -101,3 +101,13 @@ export const stopOne = (data) => {
 //     data:data
 //   })
 // }
+
+export const getImg = (data) => {
+
+  return request({
+    method: 'POST',
+    url: `/server/QRcode_generate/`,
+    data,
+    responseType: 'arraybuffer'
+  })
+}
