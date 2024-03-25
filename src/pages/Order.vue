@@ -100,6 +100,9 @@
         </div>
       </div>
     </div>
+    <Modal :visible="open" title="Visualization Graph" @ok="handleOk" @cancel="handleOk">
+      <p>Coming Soon...</p>
+    </Modal>
   </div>
 </template>
 
@@ -110,7 +113,7 @@ import useEdit from '@/setups/useEdit';
 import ComSearchForm from '@/components/com/ComSearchForm.vue';
 import moment from 'moment';
 import 'moment-timezone';
-import { PageHeader, Button, Pagination, Table, Space, Tag, InputSearch, RadioGroup, RadioButton, Modal, InputGroup} from 'ant-design-vue';
+import { Modal, PageHeader, Button, Pagination, Table, Space, Tag, InputSearch, RadioGroup, RadioButton, InputGroup} from 'ant-design-vue';
 import ComRowAction from '@/components/com/ComRowAction.vue';
 import { queryList,deleteOne,modifyOne,queryOne, getImg } from '@/apis/order'
 import ComSchemaForm from '@/components/com/ComSchemaForm.vue';
@@ -123,7 +126,16 @@ const vShow = ref(false)
 const isPop = ref(false)
 const vUser = ref({})
 const currentImg = ref('')
+const open = ref(false);
 
+// const showModal = () => {
+//   open.value = true;
+// };
+
+const handleOk = e => {
+  console.log(e);
+  open.value = false;
+};
 
 const formFields = computed(()=>{
   let result = [
@@ -239,13 +251,50 @@ const {
 })
 
 const handlePop = async(record) => {
-  
-  console.log(record)
-  let res = await getImg(record)
-  isPop.value = true
-  const blob = new Blob([res], { type: 'image/jpeg' });
-  const imageUrl = URL.createObjectURL(blob);
-  currentImg.value = imageUrl
+  try {
+    let res = await getImg(record);
+
+    if (res instanceof ArrayBuffer) {
+      console.log("Image data received:", res);
+      isPop.value = true;
+      const blob = new Blob([res], { type: 'image/jpeg' });
+      const imageUrl = URL.createObjectURL(blob);
+      currentImg.value = imageUrl;
+      // You can handle the binary data here, such as displaying the image
+    } else {
+      open.value = true;
+      // Handle error or other cases where the response is not as expected
+      console.error("Unexpected response received:", res);
+    }
+  } catch (error) {
+    // Handle the error if the request fails
+    open.value = true;
+    console.error("Error occurred while fetching image:", error);
+  }
+    
+  // let res = await getImg(record)
+
+  // if (res instanceof ArrayBuffer) {
+  // console.log("Image data received:", res);
+  // isPop.value = true
+  // const blob = new Blob([res], { type: 'image/jpeg' });
+  // const imageUrl = URL.createObjectURL(blob);
+  // currentImg.value = imageUrl;
+  // // You can handle the binary data here, such as displaying the image
+  // } else {
+  //   open.value = true;
+  //   // Handle error or other cases where the response is not as expected
+  //   console.error("Error occurred while fetching image:", res);
+  // }
+  // console.log(res.code)
+  // if(res.code = '404') {
+  //   open.value = true;
+  // }else {
+  //   isPop.value = true
+  //   const blob = new Blob([res], { type: 'image/jpeg' });
+  //   const imageUrl = URL.createObjectURL(blob);
+  //   currentImg.value = imageUrl
+  // }
 }
 
 const onSearch = searchValue => {

@@ -560,7 +560,7 @@ onMounted(async() => {
 
   setInterval(() => {
     getInfo();
-  }, 10000);
+  }, 100000);
 });
 
 </script>
